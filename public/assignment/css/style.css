@@ -24,6 +24,14 @@ p.navbar-text.pull-left {
     opacity: 0.7;
 }
 
-li.border-less{
+li.border-less {
     border: 0 none;
+}
+
+.addPadding {
+  padding-left: 15px;
+}
+
+.bottomPadding{
+    padding-bottom: 70px;
 }
