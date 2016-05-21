@@ -15,17 +15,17 @@
     <div class="container-fluid">
         <div class="navbar-header">
             <p class="navbar-text pull-left">
-                <a href="/assignment/website/website-list.html" class="navbar-link">
+                <a href="widget-list.html" class="navbar-link">
                   <span class="glyphicon glyphicon-chevron-left">
                   </span>
                 </a>
             </p>
             <a class="navbar-brand" href="#">
-                Pages
+                Widget edit
             </a>
             <p class="navbar-text pull-right">
-                <a href="page-new.html" class="navbar-link">
-                  <span class="glyphicon glyphicon-plus">
+                <a href="widget-list.html" class="navbar-link">
+                  <span class="glyphicon glyphicon-ok">
                   </span>
                 </a>
             </p>
@@ -33,42 +33,40 @@
     </div>
 </nav>
 
-    <div class="container">
-        <ul class="list-group">
-            <li class="list-group-item border-less">
-                <a href="/assignment/widget/widget-list.html">
-                    Some Blog Post
-                </a>
-                <a href="page-edit.html" class="pull-right">
-                    <span class="glyphicon glyphicon-cog"></span>
-                </a>
-            </li>
-            <li class="list-group-item border-less">
-                <a href="#">
-                    Home
-                </a>
-                <a href="#" class="pull-right">
-                    <span class="glyphicon glyphicon-cog"></span>
-                </a>
-            </li>
-            <li class="list-group-item border-less">
-                <a href="#">
-                    About
-                </a>
-                <a href="#" class="pull-right">
-                    <span class="glyphicon glyphicon-cog"></span>
-                </a>
-            </li>
-            <li class="list-group-item border-less">
-                <a href="#">
-                    Product List
-                </a>
-                <a href="#" class="pull-right">
-                    <span class="glyphicon glyphicon-cog"></span>
-                </a>
-            </li>
-        </ul>
-    </div>
+<div class="container">
+
+    <form>
+        <div class="form-group">
+            <label for="Name">Name</label>
+            <input type="text"
+                   class="form-control"
+                   id="Name">
+        </div>
+        <div class="form-group">
+            <label for="Text">Text</label>
+                <textarea rows="1"
+                          id="Text"
+                          class="form-control"
+                          placeholder="US Senator reaches comprimise on emergency"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="Size">URL</label>
+                <textarea rows="1"
+                          id="Size"
+                          class="form-control"
+                          placeholder="www.youtube.com/SdaSRtX"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="Width">Width</label>
+                <textarea rows="1"
+                          id="Width"
+                          class="form-control"
+                          placeholder="100%"></textarea>
+        </div>
+    </form>
+    <a class="btn btn-danger  btn-block"
+       href="website-list.html">Delete</a>
+</div>
 
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container">
