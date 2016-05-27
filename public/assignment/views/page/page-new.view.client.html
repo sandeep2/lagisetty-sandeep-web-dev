@@ -14,21 +14,21 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
             <p class="navbar-text pull-left">
-                <a href="widget-list.html" class="navbar-link">
+                <a href="page-edit.view.client.html" class="navbar-link">
                   <span class="glyphicon glyphicon-chevron-left">
                   </span>
                 </a>
             </p>
             <a class="navbar-brand" href="#">
-                Widget edit
+                New Page
             </a>
             <p class="navbar-text pull-right">
-                <a href="widget-list.html" class="navbar-link">
-                  <span class="glyphicon glyphicon-ok">
+                <a href="page-edit.view.client.html" class="navbar-link">
+                  <span class="glyphicon glyphicon-ok pull right">
                   </span>
                 </a>
             </p>
-        </div>
+    </div>
 </nav>
 
 <div class="container">
@@ -38,37 +38,17 @@
             <label for="Name">Name</label>
             <input type="text"
                    class="form-control"
-                   id="Name">
+                   id="Name"
+                   placeholder="Page Name">
         </div>
         <div class="form-group">
-            <label for="Text">Text</label>
-                <input    id="Text"
+            <label for="Description">Title</label>
+                <textarea rows="1"
+                          id="Description"
                           class="form-control"
-                          placeholder="US Senator reaches comprimise on emergency"/>
-        </div>
-        <div class="form-group">
-            <label for="Size">URL</label>
-                <input    id="Size"
-                          class="form-control"
-                          placeholder="http://zdnet4.cbsistatic.com/hub/i/r/2016/04/02/063caa9f-609a-47bd-ba7b-c30cf105225c/resize/770xauto/dd2fa321a03c9145bcd254ed6bcb4c2f/tesla-model-3-1-of-12.jpg"/>
-        </div>
-        <div class="form-group">
-            <label for="Width">Width</label>
-                <input   id="Width"
-                          class="form-control"
-                          placeholder="100%"/>
-        </div>
-        <div class="form-group">
-            <label for="InputFile">Upload</label>
-            <input type="file"
-                   id="InputFile"
-                   class="form-control"/>
+                          placeholder="Page Title"></textarea>
         </div>
     </form>
-    <a class="btn btn-primary  btn-block"
-       href="#">Upload Image</a>
-    <a class="btn btn-danger  btn-block addMargin"
-       href="widget-list.html">Delete</a>
 </div>
 
 <nav class="navbar navbar-default navbar-fixed-bottom">
