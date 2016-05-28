@@ -23,15 +23,13 @@
 
         function findUserPresent(username)
         {
-            for(var i in users){
-                if (users[i].username === username){
+            for(var i in users) {
+                if (users[i].username === username) {
                     return true;
                 }
-                else
-                {
-                    return false;
-                }
             }
+                    return false;
+
         }
         function createUser(username,password) {
             var registerUser = {

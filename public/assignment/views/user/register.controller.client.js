@@ -12,7 +12,10 @@
 
         vm.register = function(username,password,confirmPassword){
             if (username && password && confirmPassword) {
-                if (! UserService.findUserPresent(username)) {
+                if (UserService.findUserPresent(username)) {
+                    vm.error = "User already exists with this username";
+                }
+                else{
                     if (password === confirmPassword) {
                         var user = UserService.createUser(username, password);
                         if (user) {
@@ -26,9 +29,6 @@
                         vm.error = "Passwords mismatch";
                         return null;
                     }
-                }
-                else{
-                    vm.error = "User already exists with this username";
                 }
             }
             else{
