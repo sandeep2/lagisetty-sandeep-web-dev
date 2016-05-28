@@ -16,10 +16,23 @@
             findUserByUsernameAndPassword: findUserByUsernameAndPassword,
             findUserById: findUserById,
             updateUser: updateUser,
-            deleteUser: deleteUser
+            deleteUser: deleteUser,
+            findUserPresent: findUserPresent
         };
         return api;
 
+        function findUserPresent(username)
+        {
+            for(var i in users){
+                if (users[i].username === username){
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
         function createUser(username,password) {
             var registerUser = {
                 _id:(new Date()).getTime()+"",
@@ -36,6 +49,7 @@
                 if(users[i]._id === id) {
                     users[i].firstName = newUser.firstName;
                     users[i].lastName = newUser.lastName;
+                    users[i].email = newUser.email;
                     return true;
                 }
             }

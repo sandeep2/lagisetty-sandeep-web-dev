@@ -10,7 +10,7 @@
         var id = $routeParams.id;
 
         function init() {
-            vm.user = UserService.findUserById(id);
+            vm.user = angular.copy(UserService.findUserById(id));
         }
         init();
 
