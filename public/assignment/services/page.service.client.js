@@ -15,9 +15,20 @@
     function PageService(){
 
         var api = {
-            findPagesforWebsiteId:findPagesforWebsiteId
+            findPagesforWebsiteId:findPagesforWebsiteId,
+            findPageInstance:findPageInstance,
+            deletePage: deletePage,
+            updatePage:updatePage
         };
         return api;
+
+        function findPageInstance(Id){
+            for(var i in pages){
+                if(pages[i]._id===Id){
+                    return pages[i];
+                }
+            }
+        }
 
         function findPagesforWebsiteId(Id){
             var resultSet = [];
@@ -27,6 +38,27 @@
                 }
             }
             return resultSet;
+        }
+
+        function deletePage(Id){
+            for(var i in pages){
+                if(pages[i]._id===Id){
+                    pages.splice(i,1);
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function updatePage(page,Id){
+            for (var i in pages){
+                if(pages[i]._id===Id){
+                    pages[i].name = page.name;
+                    pages[i].title = page.title;
+                    return true;
+                }
+            }
+            return false;
         }
 
     }
