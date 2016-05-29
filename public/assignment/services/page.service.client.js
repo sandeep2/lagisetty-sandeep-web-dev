@@ -31,6 +31,7 @@
                 websiteId: Id
             };
             pages.push(newPage);
+            console.log(pages);
             return newPage;
         }
 
