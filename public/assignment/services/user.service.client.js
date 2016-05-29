@@ -14,7 +14,7 @@
         var api = {
             createUser: createUser,
             findUserByUsernameAndPassword: findUserByUsernameAndPassword,
-            findUserById: findUserById,
+            findUserInstance: findUserInstance,
             updateUser: updateUser,
             deleteUser: deleteUser,
             findUserPresent: findUserPresent
@@ -38,23 +38,30 @@
                 password:password
             };
             users.push(registerUser);
+            console.log(registerUser);
             return registerUser;
         }
 
-        function deleteUser(userId) {}
+        function deleteUser(userId) {
+            for(var i in users){
+                if(users[i]._id=== userId)
+                {users.splice(i,1)};
+            }
+        }
         function updateUser(id, newUser) {
             for(var i in users) {
                 if(users[i]._id === id) {
                     users[i].firstName = newUser.firstName;
                     users[i].lastName = newUser.lastName;
                     users[i].email = newUser.email;
+                    console.log(users[i]);
                     return true;
                 }
             }
             return false;
         }
 
-        function findUserById(id) {
+        function findUserInstance(id) {
             for(var i in users) {
                 if(users[i]._id === id) {
                     return users[i];
