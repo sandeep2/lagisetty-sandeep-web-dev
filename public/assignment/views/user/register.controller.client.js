@@ -19,7 +19,7 @@
                     if (password === confirmPassword) {
                         var user = UserService.createUser(username, password);
                         if (user) {
-                            $location.url("/profile/" + user._id);
+                            $location.url("/user/" + user._id);
                         }
                         else {
                             vm.error = "Registration Failure";

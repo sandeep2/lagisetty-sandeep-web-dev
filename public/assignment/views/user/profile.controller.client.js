@@ -6,16 +6,20 @@
     function ProfileController($routeParams, UserService) {
         var vm = this;
         vm.updateUser = updateUser;
-
         var id = $routeParams.id;
 
-        function init() {
-            vm.user = angular.copy(UserService.findUserById(id));
-        }
-        init();
+        vm.user = angular.copy(UserService.findUserInstance(id));
+
 
         function updateUser(newUser) {
-            UserService.updateUser(id, newUser);
+            var result = UserService.updateUser(id, newUser);
+            if(result === true)
+            {
+                vm.alert = "Profile updated";
+            }
+            else{
+                vm.alert="Error in updating profile";
+            }
         }
     }
 
