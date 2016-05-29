@@ -19,7 +19,6 @@
             var newWidget = WidgetService.createWidget(widgetType,vm.pageId);
             if(newWidget){
                 $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget/"+newWidget._id);
-
             }
             else{
                 vm.error = "unable to create page";

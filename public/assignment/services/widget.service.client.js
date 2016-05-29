@@ -21,9 +21,41 @@
     function WidgetService() {
         var api = {
             findWidgetsForPageId: findWidgetsForPageId,
-            createWidget: createWidget
+            createWidget: createWidget,
+            findWidgetInstance:findWidgetInstance,
+            updateWidget: updateWidget,
+            deleteWidget: deleteWidget
         };
         return api;
+
+        function deleteWidget(Id){
+            for(var i in widgets){
+                if(widgets[i]._id===Id){
+                    widgets.splice(i,1);
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function updateWidget(Id,widget){
+            for (var i in widgets){
+                if(widgets[i]._id===Id){
+                    widgets[i] = widget;
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function findWidgetInstance(Id){
+            for (var i in widgets){
+                if(widgets[i]._id===Id){
+                    return widgets[i];
+                }
+            }
+            return null;
+        }
 
         function findWidgetsForPageId(pageId) {
             var resultSet = [];
@@ -42,7 +74,7 @@
                 pageId: pageId
             };
             widgets.push(newWidget);
-            return newWidget
+            return newWidget;
         }
     }
 })();
