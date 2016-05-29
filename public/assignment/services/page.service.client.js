@@ -18,9 +18,21 @@
             findPagesforWebsiteId:findPagesforWebsiteId,
             findPageInstance:findPageInstance,
             deletePage: deletePage,
-            updatePage:updatePage
+            updatePage:updatePage,
+            createPage: createPage
         };
         return api;
+
+        function createPage(Id, name, title) {
+            var newPage = {
+                _id: (new Date()).getTime()+"",
+                name: name,
+                title: title,
+                websiteId: Id
+            };
+            pages.push(newPage);
+            return newPage;
+        }
 
         function findPageInstance(Id){
             for(var i in pages){

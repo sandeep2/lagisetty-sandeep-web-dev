@@ -1,20 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="viewport" content="initial-scale=1.25, user-scalable = no">
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="/assignment/css/style.css" rel="stylesheet"/>
-</head>
-<body>
-
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
             <p class="navbar-text pull-left">
-                <a href="page-edit.view.client.html" class="navbar-link">
+                <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page" class="navbar-link">
                   <span class="glyphicon glyphicon-chevron-left">
                   </span>
                 </a>
@@ -23,7 +10,7 @@
                 New Page
             </a>
             <p class="navbar-text pull-right">
-                <a href="page-edit.view.client.html" class="navbar-link">
+                <a ng-click="model.createPage(name, title)" class="navbar-link">
                   <span class="glyphicon glyphicon-ok pull right">
                   </span>
                 </a>
@@ -36,14 +23,14 @@
     <form>
         <div class="form-group">
             <label for="Name">Name</label>
-            <input type="text"
+            <input ng-model="name" type="text"
                    class="form-control"
                    id="Name"
                    placeholder="Page Name">
         </div>
         <div class="form-group">
             <label for="Description">Title</label>
-                <textarea rows="1"
+                <textarea ng-model="description" rows="1"
                           id="Description"
                           class="form-control"
                           placeholder="Page Title"></textarea>
@@ -54,12 +41,9 @@
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid">
         <p class="navbar-text pull-right">
-            <a href="/assignment/user/profile.html">
+            <a href="#/user/{{model.userId}}">
                 <span class="glyphicon glyphicon-user"></span>
             </a>
         </p>
     </div>
 </nav>
-
-</body>
-</html>
