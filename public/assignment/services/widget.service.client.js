@@ -20,7 +20,8 @@
 
     function WidgetService() {
         var api = {
-            findWidgetsForPageId: findWidgetsForPageId
+            findWidgetsForPageId: findWidgetsForPageId,
+            createWidget: createWidget
         };
         return api;
 
@@ -32,6 +33,16 @@
                 }
             }
             return resultSet;
+        }
+
+        function createWidget(widgetType,pageId){
+            var newWidget = {
+                _id: (new Date()).getTime()+"",
+                widgetType: widgetType,
+                pageId: pageId
+            };
+            widgets.push(newWidget);
+            return newWidget
         }
     }
 })();
