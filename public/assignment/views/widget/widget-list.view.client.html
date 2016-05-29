@@ -1,101 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="viewport" content="initial-scale=1.25, user-scalable = no">
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="/assignment/css/style.css" rel="stylesheet"/>
-</head>
-<body>
-
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
-            <p class="navbar-text pull-left">
-                <a href="/assignment/page/page-list.html" class="navbar-link">
+        <p class="navbar-text pull-left">
+            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page" class="navbar-link">
                   <span class="glyphicon glyphicon-chevron-left">
                   </span>
-                </a>
-            </p>
-            <a class="navbar-brand" href="#">
-                Widgets
             </a>
-            <p class="navbar-text pull-right">
-                <a href="/assignment/widget/widget-chooser.html" class="navbar-link">
+        </p>
+        <a class="navbar-brand" href="#">
+            Widgets
+        </a>
+        <p class="navbar-text pull-right">
+            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/new" class="navbar-link">
                   <span class="glyphicon glyphicon-plus">
                   </span>
-                </a>
-            </p>
-        </div>
+            </a>
+        </p>
     </div>
 </nav>
 
-    <div class="container">
-
-        <div class="jga-widget">
-            <div class="jga-widget-tool">
-                <a href="widget-heading.view.client.html">
-                    <span class="glyphicon glyphicon-cog"></span>
-                </a>
-                <span class="glyphicon glyphicon-align-justify"></span>
-            </div>
-            <h1>GIZMODO</h1>
+<div class="container">
+    <div ng-repeat="widget in model.widgets" class="jga-widget">
+        <div class="jga-widget-tool">
+            <a href="widget-heading.view.client.html">
+                <span class="glyphicon glyphicon-cog"></span>
+            </a>
+            <span class="glyphicon glyphicon-align-justify"></span>
         </div>
 
-        <div class="jga-widget">
-            <div class="jga-widget-tool">
-                <a href="#">
-                    <span class="glyphicon glyphicon-cog"></span>
-                </a>
-                <span class="glyphicon glyphicon-align-justify"></span>
-            </div>
-            <h4>Two Problems With the New York Times Facebook Live Pitch Meeting</h4>
+    <div ng-switch="widget.widgetType">
+        <div ng-switch-when="HEADER" ng-switch="widget.size">
+            <h1 ng-switch-when="1">{{widget.text}}</h1>
+            <h2 ng-switch-when="2">{{widget.text}}</h2>
+            <h3 ng-switch-when="3">{{widget.text}}</h3>
+            <h4 ng-switch-when="4">{{widget.text}}</h4>
+            <h5 ng-switch-when="5">{{widget.text}}</h5>
+            <h6 ng-switch-when="6">{{widget.text}}</h6>
         </div>
-
-        <div class="jga-widget">
-            <div class="jga-widget-tool">
-                <a href="widget-image.view.client.html">
-                    <span class="glyphicon glyphicon-cog"></span>
-                </a>
-                <span class="glyphicon glyphicon-align-justify"></span>
-            </div>
-            <img width="100%" src="http://blogs-images.forbes.com/sap/files/2016/04/Tesla-Motors-Model-3-Mainstream-04-08-2016-C-1200x800.jpg"/>
+        <div ng-switch-when = "HTML">
+            <div ng-bind-html="model.getSafeHtml(widget)"></div>
         </div>
-
-        <div class="jga-widget">
-            <div class="jga-widget-tool">
-                <a href="#">
-                    <span class="glyphicon glyphicon-cog"></span>
-                </a>
-                <span class="glyphicon glyphicon-align-justify"></span>
-            </div>
-            <p class="first-text">This afternoon, in a scene plucked from one of my work-related anxiety dreams, <em>New York Times</em> reporters Nick Corasaniti, Maggie Haberman, and Thomas Kaplan <a href="https://www.facebook.com/nytimes/videos/10150812214919999/" rel="noopener" target="_blank">pitched stories to politics editor Carolyn Ryan on Facebook Live</a> while thousands of people watched it happen.</p>
+        <div ng-switch-when="IMAGE">
+            <img ng-src="{{widget.url}}" width="{{widget.width}}"/>
         </div>
-
-        <div class="jga-widget">
-            <div class="jga-widget-tool">
-                <a href="widget-youtube.view.client.html">
-                    <span class="glyphicon glyphicon-cog"></span>
-                </a>
-                <span class="glyphicon glyphicon-align-justify"></span>
-            </div>
-            <iframe width="100%" src="https://www.youtube.com/embed/aD4grQXZPfg" frameborder="0" allowfullscreen></iframe>
+        <div ng-switch-when="YOUTUBE">
+            <iframe width="{{widget.width}}"
+                    height="{{widget.height}}"
+                    ng-src="{{model.getSafeUrl(widget)}}"
+                    frameborder="0" allowfullscreen></iframe>
         </div>
-
-        <div class="jga-widget">
-            <div class="jga-widget-tool">
-                <a href="#">
-                    <span class="glyphicon glyphicon-cog"></span>
-                </a>
-                <span class="glyphicon glyphicon-align-justify"></span>
-            </div>
-            <p class="first-text bottomPadding">The invention of sailing is prehistoric, but the racing of sailing boats is believed to have started in the Netherlands some time in the 17th century. Soon, in England, custom-built racing "yachts" began to emerge. In 1851, the Royal Yacht Squadron in Cowes challenged the American yacht America. The race took place in the Solent. The America won the race and took the trophy, the America's Cup, back to the U.S. where, held by the New York Yacht Club it remained until 1983. The Cup was then lost to the Royal Perth Yacht Club of Australia, which entered the Australia II into the contest. Meanwhile, yacht racing continued to evolve, with the development of recognised classes of racing yachts, from small dinghies up to huge maxi yachts.</p>
+        <div ng-switch-default>
+            Unable to render widget
         </div>
     </div>
-
-
+        </div>
+    </div>
 
 
 <nav class="navbar navbar-default navbar-fixed-bottom">
@@ -109,12 +67,9 @@
             </a>
         </p>
         <p class="navbar-text pull-right">
-            <a href="/assignment/user/profile.html">
+            <a href="#/user/{{model.userId}}">
                 <span class="glyphicon glyphicon-user"></span>
             </a>
         </p>
     </div>
 </nav>
-
-</body>
-</html>
