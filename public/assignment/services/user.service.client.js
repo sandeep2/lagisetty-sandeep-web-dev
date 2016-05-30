@@ -38,7 +38,6 @@
                 password:password
             };
             users.push(registerUser);
-            console.log(registerUser);
             return registerUser;
         }
 
@@ -54,7 +53,6 @@
                     users[i].firstName = newUser.firstName;
                     users[i].lastName = newUser.lastName;
                     users[i].email = newUser.email;
-                    console.log(users[i]);
                     return true;
                 }
             }
