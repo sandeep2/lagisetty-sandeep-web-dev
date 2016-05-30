@@ -1,25 +1,25 @@
 
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                Profile
-            </a>
-            <p class="navbar-text pull-right">
-                <a ng-click="model.updateUser(model.user)" class="navbar-link">
+        <a class="navbar-brand" href="#">
+            Profile
+        </a>
+        <p class="navbar-text pull-right">
+            <a ng-click="model.updateUser(model.user)" class="navbar-link">
                   <span class="glyphicon glyphicon-ok">
                   </span>
-                </a>
-            </p>
+            </a>
+        </p>
     </div>
 </nav>
 
 <div class="container">
-
-    <div class="alert alert-success alert-dismissible" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <strong>Success! Your profile was saved.</strong>
+    <div ng-show="model.success" class="alert alert-success" role="alert">
+        <strong>{{model.success}}</strong>
     </div>
-    {{model.user}}
+    <div ng-show="model.error" class="alert alert-success" role="alert">
+        <strong>{{model.error}}</strong>
+    </div>
     <form>
         <div class="form-group">
             <label for="username">Username</label>

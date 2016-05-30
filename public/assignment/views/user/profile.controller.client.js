@@ -15,10 +15,10 @@
             var result = UserService.updateUser(id, newUser);
             if(result === true)
             {
-                vm.alert = "Profile updated";
+                vm.success = "Profile updated";
             }
             else{
-                vm.alert="Error in updating profile";
+                vm.error="Error in updating profile";
             }
         }
     }
