@@ -15,7 +15,7 @@
         vm.widgetId=$routeParams.widgetId;
         vm.updateWidget = updateWidget;
         vm.deleteWidget = deleteWidget;
-
+        vm.hideDelete = $location.search().hide;
         vm.widget = angular.copy(WidgetService.findWidgetInstance(vm.widgetId));
 
         function updateWidget(){

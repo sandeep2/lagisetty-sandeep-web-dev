@@ -29,7 +29,7 @@
         <ng-include src="'views/widget/widget-youtube.view.client.html'">
     </div>
 </div>
-<div class="container">
+<div ng-hide=model.hideDelete class="container">
     <a ng-click="model.deleteWidget(model.widgetId)" class="btn btn-block btn-danger buttonDelete">Delete
     </a>
 </div>
