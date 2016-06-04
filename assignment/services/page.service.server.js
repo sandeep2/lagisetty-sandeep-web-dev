@@ -34,7 +34,7 @@ module.exports = function(app){
                 result.push(pages[i]);
             }
         }
-        res.json(result);
+        res.send(result);
     }
 
     function findPageById(req,res){
@@ -45,7 +45,7 @@ module.exports = function(app){
                 return;
             }
         }
-        res.json({});
+        res.send({});
     }
 
     function updatePage(req,res){
