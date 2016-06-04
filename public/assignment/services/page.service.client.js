@@ -6,13 +6,7 @@
         .module("WebAppMaker")
         .factory("PageService",PageService);
 
-    var pages = [
-        { "_id": "321", "name": "Post 1", "websiteId": "456" },
-        { "_id": "432", "name": "Post 2", "websiteId": "456" },
-        { "_id": "543", "name": "Post 3", "websiteId": "456" }
-    ];
-
-    function PageService(){
+    function PageService($http){
 
         var api = {
             findPagesforWebsiteId:findPagesforWebsiteId,
@@ -30,47 +24,27 @@
                 title: title,
                 websiteId: Id
             };
-            pages.push(newPage);
-            return newPage;
+            return $http.post("/api/website/"+Id+"/page",newPage);
         }
 
         function findPageInstance(Id){
-            for(var i in pages){
-                if(pages[i]._id===Id){
-                    return pages[i];
-                }
-            }
+            var url = "/api/page/"+Id;
+            return $http.get(url);
         }
 
         function findPagesforWebsiteId(Id){
-            var resultSet = [];
-            for (var i in pages){
-                if (pages[i].websiteId === Id){
-                    resultSet.push(pages[i]);
-                }
-            }
-            return resultSet;
+            var url = "/api/website/"+Id+"/page";
+            return $http.get(url);
         }
 
         function deletePage(Id){
-            for(var i in pages){
-                if(pages[i]._id===Id){
-                    pages.splice(i,1);
-                    return true;
-                }
-            }
-            return false;
+            var url = "/api/page/"+Id;
+            return $http.delete(url);
         }
 
         function updatePage(page,Id){
-            for (var i in pages){
-                if(pages[i]._id===Id){
-                    pages[i].name = page.name;
-                    pages[i].title = page.title;
-                    return true;
-                }
-            }
-            return false;
+            var url = "/api/page/"+Id;
+            return $http.put(url,page);
         }
 
     }
