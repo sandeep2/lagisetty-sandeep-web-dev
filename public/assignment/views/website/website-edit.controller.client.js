@@ -9,26 +9,36 @@
         vm.websiteId = $routeParams.websiteId;
         vm.deleteWebsite = deleteWebsite;
         vm.updateWebsite = updateWebsite;
-        vm.website = angular.copy(WebsiteService.findWebsiteInstance(vm.websiteId));
+
+        function init() {
+            WebsiteService
+                .findWebsiteInstance(vm.websiteId)
+                .then(function(res){
+                    vm.website = angular.copy(res.data);
+                })
+        }
+        init();
 
         function deleteWebsite(websiteId){
-            var result = WebsiteService.deleteWebsite(websiteId);
-            if(result){
-                $location.url("/user/"+vm.userId+"/website")
-            }
-            else{
-                vm.error = "Unable to delete website";
-            }
+            WebsiteService
+                .deleteWebsite(websiteId)
+                .then(function(res) {
+                    $location.url("/user/" + vm.userId + "/website");
+                },
+                function(error){
+                    vm.error = "error in deleting website";
+                })
         }
 
         function updateWebsite(){
-            var result = WebsiteService.updateWebsite(vm.website,vm.websiteId);
-            if(result){
+            WebsiteService
+                .updateWebsite(vm.website,vm.websiteId)
+                .then(function(res){
                 $location.url("/user/"+vm.userId+"/website")
-            }
-            else{
+            },
+            function(error){
                 vm.error = "unable to update website"
-            }
+            });
         }
 
     }
