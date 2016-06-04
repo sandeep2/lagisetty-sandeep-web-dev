@@ -49,8 +49,8 @@ module.exports = function(app){
     }
 
     function updatePage(req,res){
-        var id = req.params.pageId;
         var page = req.body;
+        var id = req.params.pageId;
         for (var i in pages){
             if(pages[i]._id === id){
                 pages[i].name = page.name;
