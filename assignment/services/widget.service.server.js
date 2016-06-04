@@ -22,7 +22,7 @@ module.exports = function(app){
     app.get("/api/widget/:widgetId",findWidgetById);
     app.get("/api/page/:pageId/widget",findAllWidgets);
     app.delete("/api/widget/:widgetId",deleteWidget);
-    //app.post("/api/upload",upload.single('myFile'),uploadImage);
+    app.post("/api/upload",upload.single('myFile'),uploadImage);
 
     function uploadImage(req,res){
 
