@@ -21,6 +21,8 @@
                         vm.error = error.data;
                     }
                 );
+            $(".container")
+                .sortable({axis: "y"});
         }
         init();
 
