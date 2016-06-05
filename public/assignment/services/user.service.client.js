@@ -15,7 +15,7 @@
         return api;
 
         function findUserPresent(username){
-            var url = "/api/user/" + username;
+            var url = "/api/user/?username=" + username;
             return $http.get(url);
         }
         function createUser(username, password) {

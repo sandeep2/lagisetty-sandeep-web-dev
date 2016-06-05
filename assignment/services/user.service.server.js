@@ -61,8 +61,6 @@ module.exports = function(app) {
     function getUsers(req, res) {
         var username = req.query['username'];
         var password = req.query['password'];
-        console.log(username);
-        console.log(password);
         if(username && password) {
             findUserByCredentials(username, password, res);
         } else if(username) {
@@ -85,10 +83,10 @@ module.exports = function(app) {
     function findUserByUsername(username, res) {
         for(var i in users) {
             if(users[i].username === username) {
-                res.send(users[i]);
+                res.send("True");
                 return;
             }
         }
-        res.send({});
+        res.send("False");
     }
 };
