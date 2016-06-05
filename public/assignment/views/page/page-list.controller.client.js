@@ -10,7 +10,11 @@
 
 
         function init() {
-            vm.pages = PageService.findPagesforWebsiteId(vm.websiteId);
+            PageService
+                .findPagesforWebsiteId(vm.websiteId)
+                .then(function (res) {
+                    vm.pages = res.data;
+                })
         }
 
         init();

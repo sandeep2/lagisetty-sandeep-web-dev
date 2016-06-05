@@ -18,21 +18,24 @@
     </div>
 </nav>
 
-<div ng-switch="model.widget.widgetType">
-    <div ng-switch-when="HEADER">
-        <ng-include src="'views/widget/widget-header.view.client.html'">
+<div class="addMargin">
+    <div ng-switch="model.widget.widgetType">
+        <div ng-switch-when="HEADER">
+            <ng-include src="'views/widget/widget-header.view.client.html'">
+        </div>
+        <div ng-switch-when="IMAGE">
+            <ng-include src="'views/widget/widget-image.view.client.html'">
+        </div>
+        <div ng-switch-when="YOUTUBE">
+            <ng-include src="'views/widget/widget-youtube.view.client.html'">
+        </div>
     </div>
-    <div ng-switch-when="IMAGE">
-        <ng-include src="'views/widget/widget-image.view.client.html'">
-    </div>
-    <div ng-switch-when="YOUTUBE">
-        <ng-include src="'views/widget/widget-youtube.view.client.html'">
+    <div ng-hide=model.hideDelete class="container">
+        <a ng-click="model.deleteWidget(model.widgetId)" class="btn btn-block btn-danger buttonDelete">Delete
+        </a>
     </div>
 </div>
-<div ng-hide=model.hideDelete class="container">
-    <a ng-click="model.deleteWidget(model.widgetId)" class="btn btn-block btn-danger buttonDelete">Delete
-    </a>
-</div>
+
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fluid">
         <p class="navbar-text pull-right">

@@ -1,5 +1,5 @@
 <div class="container">
-    <form>
+    <form action="/api/upload"  method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label for="name">Name</label>
             <input ng-model="model.widget.name" id="name"
@@ -28,13 +28,21 @@
                    class="form-control"
                    placeholder="100%"/>
         </div>
+
         <div class="form-group">
-            <label for="imageFile">Upload</label>
-            <input ng-model="model.widget.file" id="imageFile"
-                   type="file"
-                   class="form-control"/>
+                <label for="widget-upload">Upload Image</label>
+                <input  name="myFile" id="widget-upload"   type="file" class="form-control"/>
+                <input  name="width"    value="{{model.widget.width}}" style="display: none"/>
+                <input  name="widgetId" value="{{model.widget._id}}"   style="display: none"/>
+                <input name="websiteId" value="{{model.websiteId}}" style="display: none"/>
+                <input name="userId" value="{{model.userId}}" style="display: none"/>
+                <input name="pageId" value="{{model.pageId}}" style="display: none"/>
+                <button type="submit"   class="btn btn-block btn-primary">Upload Image</button>
         </div>
-        <a  class="btn btn-block btn-primary" href=""> Upload Image
+
+        <a class="btn btn-block btn-info"
+           href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/{{model.widgetId}}/flickr">
+            Search Images in Flickr
         </a>
     </form>
 </div>

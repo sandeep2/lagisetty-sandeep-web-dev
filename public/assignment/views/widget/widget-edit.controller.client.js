@@ -16,26 +16,38 @@
         vm.updateWidget = updateWidget;
         vm.deleteWidget = deleteWidget;
         vm.hideDelete = $location.search().hide;
-        vm.widget = angular.copy(WidgetService.findWidgetInstance(vm.widgetId));
+
+        function init() {
+            WidgetService
+                .findWidgetInstance(vm.widgetId)
+                .then(function(res){
+                    vm.widget = angular.copy(res.data);
+                });
+        }
+        init();
 
         function updateWidget(){
-            var result = WidgetService.updateWidget(vm.widgetId,vm.widget);
-            if (result){
-                $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget");
-            }
-            else{
-                vm.error = "Error editing widget"
-            }
+            WidgetService
+                .updateWidget(vm.widgetId,vm.widget)
+                .then(function(res){
+                        $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget");
+                    },
+                    function(error){
+                        vm.error = "Error editing widget"
+                    }
+                );
         }
 
         function deleteWidget(Id){
-            var result = WidgetService.deleteWidget(Id);
-            if(result){
-                return $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget");
-            }
-            else{
-                vm.error = "Error in deleting widget";
-            }
+            WidgetService
+                .deleteWidget(Id)
+                .then(function(res){
+                        return $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget");
+                    },
+                    function(error){
+                        vm.error = "Error in deleting widget";
+                    }
+                );
         }
     }
 

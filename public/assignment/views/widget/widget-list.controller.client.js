@@ -12,7 +12,17 @@
         vm.getSafeUrl = getSafeUrl;
 
         function init() {
-            vm.widgets = WidgetService.findWidgetsForPageId(vm.pageId);
+            WidgetService
+                .findWidgetsForPageId(vm.pageId)
+                .then(function(res){
+                    vm.widgets = res.data;
+                },
+                    function(error){
+                        vm.error = error.data;
+                    }
+                );
+            $(".container")
+                .sortable({axis: "y"});
         }
         init();
 

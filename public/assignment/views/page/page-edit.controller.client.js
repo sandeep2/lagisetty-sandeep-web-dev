@@ -11,28 +11,41 @@
         vm.userId = $routeParams.userId;
         vm.websiteId = $routeParams.websiteId;
         vm.pageId = $routeParams.pageId;
-        vm.page = angular.copy(PageService.findPageInstance(vm.pageId));
         vm.deletePage = deletePage;
         vm.updatePage = updatePage;
 
+        function init() {
+            PageService
+                .findPageInstance(vm.pageId)
+                .then(function (response) {
+                    vm.page = angular.copy(response.data);
+                });
+        }
+
+        init();
+
         function deletePage(pageId){
-            var result = PageService.deletePage(pageId);
-            if(result){
-                $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page");
-            }
-            else{
-                vm.error = "Unable to delete page";
-            }
+            PageService
+                .deletePage(pageId)
+                .then(function(res){
+                        $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page");
+                    },
+                    function(error){
+                        vm.error = "Unable to delete page";
+                    }
+                );
         }
 
         function updatePage(){
-            var result = PageService.updatePage(vm.page,vm.pageId);
-            if(result){
-                $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page");
-            }
-            else{
-                vm.error = "unable to update page"
-            }
+            PageService
+                .updatePage(vm.page,vm.pageId)
+                .then(function(res){
+                        $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page");
+                    },
+                    function(error){
+                        vm.error = "unable to update page"
+                    }
+                )
         }
     }
 })();

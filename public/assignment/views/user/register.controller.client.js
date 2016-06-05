@@ -12,24 +12,34 @@
 
         vm.register = function(username,password,confirmPassword){
             if (username && password && confirmPassword) {
-                if (UserService.findUserPresent(username)) {
-                    vm.error = "User already exists with this username";
-                }
-                else{
-                    if (password === confirmPassword) {
-                        var user = UserService.createUser(username, password);
-                        if (user) {
-                            $location.url("/user/" + user._id);
-                        }
-                        else {
-                            vm.error = "Registration Failure";
-                        }
-                    }
-                    else {
-                        vm.error = "Passwords mismatch";
-                        return null;
-                    }
-                }
+                UserService
+                    .findUserPresent(username)
+                    .then(
+                        function(res){
+                            if (res.data === "True") {
+                                vm.error = "User already exists with this username";
+                            }
+                            else {
+                                if (password === confirmPassword) {
+                                    UserService
+                                        .createUser(username, password)
+                                        .then(
+                                            function (res) {
+                                                var user = res.data;
+                                                $location.url("/user/" + user._id);
+                                            },
+                                            function (error) {
+                                                vm.error = "Registration Failure";
+
+                                            });
+
+                                }
+
+                                else {
+                                    vm.error = "Passwords mismatch";
+                                }
+                            }
+                        });
             }
             else{
                 vm.error = "Please fill all the fields"

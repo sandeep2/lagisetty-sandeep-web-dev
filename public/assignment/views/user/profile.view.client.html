@@ -5,7 +5,7 @@
             Profile
         </a>
         <p class="navbar-text pull-right">
-            <a ng-click="model.updateUser(model.user)" class="navbar-link">
+            <a ng-click="model.updateUser()" class="navbar-link">
                   <span class="glyphicon glyphicon-ok">
                   </span>
             </a>
@@ -46,8 +46,11 @@
 
     <a class="btn btn-primary btn-block"
        href="#/user/{{model.user._id}}/website">Websites</a>
-    <a class="btn btn-danger btn-block addMargin"
+    <a class="btn btn-danger btn-block"
        href="#/login">Logout</a>
+    <a ng-click="model.unregister()" class="btn btn-danger btn-block addMargin">
+        Unregister
+    </a>
 </div>
 
 <nav class="navbar navbar-default navbar-fixed-bottom">
