@@ -19,7 +19,7 @@
                             if (res.data === "True") {
                                 vm.error = "User already exists with this username";
                             }
-                            
+
                             else {
                                 if (password === confirmPassword) {
                                     UserService
