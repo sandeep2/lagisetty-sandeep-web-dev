@@ -38,7 +38,7 @@
 
         function createWidget(widgetType,pageId){
             var newWidget = {
-                widgetType: widgetType,
+                type: widgetType,
                 pageId: pageId
             };
             var url = "/api/page/"+pageId+"/widget";

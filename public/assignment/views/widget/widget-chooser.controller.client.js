@@ -19,7 +19,7 @@
             WidgetService
                 .createWidget(widgetType,vm.pageId)
                 .then(function(res){
-                        $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget/"+res.data).search({hide: 'true'});
+                        $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget/"+res.data._id).search({hide: 'true'});
                     },
                     function(error){
                         vm.error = "unable to create page";

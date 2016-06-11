@@ -1,7 +1,9 @@
 /**
  * Created by slagisetty on 6/3/2016.
  */
-module.exports = function(app){
+module.exports = function(app,models){
+
+    var widgetModel = models.widgetModel;
     var multer = require('multer');
     var upload = multer({dest: __dirname+'/../../public/uploads'});
 
@@ -46,17 +48,33 @@ module.exports = function(app){
         var size          = myFile.size;
         var mimetype      = myFile.mimetype;
 
-
-        for(var i in widgets){
+        var widget = {url: "/uploads/" + filename};
+        widgetModel
+            .updateWidget(widgetId,widget)
+            .then(function(response){
+                res.send(200);
+            },function(error){
+               res.sendStatus(400).send(error);
+            });
+        res.redirect("/assignment/#/user/"+userId +"/website/"+websiteId+"/page/"+pageId+"/widget/"+widgetId);
+/*        for(var i in widgets){
             if(widgets[i]._id === widgetId){
                 widgets[i].url = "/uploads/"+filename;
             }
         }
-        res.redirect(widget_url);
+        res.redirect(widget_url);*/
     }
 
     function findAllWidgets(req,res){
-        result = []
+        var pageId = req.params.pageId;
+        widgetModel
+            .findAllWidgets(pageId)
+            .then(function(widgets){
+                res.send(widgets);
+            },function(error){
+                res.send(error);
+            });
+/*        result = []
         var pageId = req.params.pageId;
 
         for (var i in widgets){
@@ -64,51 +82,74 @@ module.exports = function(app){
                 result.push(widgets[i]);
             }
         }
-        res.send(result);
+        res.send(result);*/
     }
 
     function  createWidget(req,res){
         var widget = req.body;
-        widget._id = (new Date()).getTime()+"";
+        var pageId = req.params.pageId;
+
+        widgetModel
+            .createWidget(pageId,widget)
+            .then(function(widget){
+                res.send(widget);
+            },function(error){
+               res.sendStatus(404).send(error);
+            });
+/*        widget._id = (new Date()).getTime()+"";
         widgets.push(widget);
-        res.status(200).send(widget._id);
+        res.status(200).send(widget._id);*/
     }
 
     function updateWidget(req,res){
         var widget = req.body;
         var id = req.params.widgetId;
 
-        for ( var i in widgets){
-            if(widgets[i]._id === id){
-                widgets[i] = widget;
+        widgetModel
+            .updateWidget(id,widget)
+            .then(function(response){
                 res.send(200);
-                return;
-            }
-        }
-        res.sendStatus(400);
+            }, function (error) {
+                console.log(error);
+                res.sendStatus(400).send(error);
+            })
     }
 
     function deleteWidget(req,res){
         var id = req.params.widgetId;
-        for(var i in widgets){
+        widgetModel
+            .deleteWidget(id)
+            .then(function(response){
+                res.send(200);
+            },function(error){
+                res.sendStatus(400).send(error);
+            });
+/*        for(var i in widgets){
             if(widgets[i]._id === id){
                 widgets.splice(i,1);
                 res.send(200);
                 return;
             }
         }
-        res.send(400);
+        res.send(400);*/
     }
 
     function  findWidgetById(req,res){
         var id = req.params.widgetId;
-        for ( var i in widgets){
+        widgetModel
+            .findWidgetById(id)
+            .then(function(widget){
+                res.send(widget);
+            },function(error){
+                res.sendStatus(400).send(error);
+            });
+/*        for ( var i in widgets){
             if(widgets[i]._id === id){
                 res.send(widgets[i]);
                 return;
             }
         }
-        res.sendStatus(400);
+        res.sendStatus(400);*/
     }
 
 };
