@@ -108,7 +108,7 @@ module.exports = function(app,models){
         widgetModel
             .updateWidget(id,widget)
             .then(function(response){
-                res.send(200);
+                res.sendStatus(200);
             }, function (error) {
                 console.log(error);
                 res.sendStatus(400).send(error);
