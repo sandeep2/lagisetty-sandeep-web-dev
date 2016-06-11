@@ -140,12 +140,18 @@ module.exports = function(app, models) {
         // res.send(403);
     }
     function findUserByUsername(username, res) {
-        for(var u in users) {
-            if(users[u].username === username) {
-                res.send(users[u]);
-                return;
-            }
-        }
-        res.send({});
+        userModel
+            .findUserByUsername(username)
+            .then(function(response){
+                    if (response === null){
+                        res.send(response);
+                    }
+                    else{
+                        res.send("True");
+                    }
+                },
+                function(error){
+                    res.send(error);
+                });
     }
 };
