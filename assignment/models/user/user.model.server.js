@@ -41,7 +41,8 @@ module.exports = function() {
             {$set :
             {
                 firstName: newUser.firstName,
-                lastName: newUser.lastName
+                lastName: newUser.lastName,
+                email: newUser.email
             }
             }
         );
