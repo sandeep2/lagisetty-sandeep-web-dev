@@ -19,7 +19,9 @@
 </nav>
 
 <div class="container bottomPadding">
-    <div ng-repeat="widget in model.widgets" class="jga-widget">
+    <wam-sortable sorted="model.sortWidget(start,end)" widgets="model.widgets" >
+
+    <div ng-repeat="widget in model.widgets | orderBy: 'order'" ng-switch="widget.type" class="jga-widget">
         <div class="jga-widget-tool">
             <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/{{widget._id}}">
                 <span class="glyphicon glyphicon-cog"></span>
@@ -27,7 +29,6 @@
             <span class="glyphicon glyphicon-align-justify"></span>
         </div>
 
-    <div ng-switch="widget.type">
         <div ng-switch-when="HEADER" ng-switch="widget.size">
             <h1 ng-switch-when="1">{{widget.text}}</h1>
             <h2 ng-switch-when="2">{{widget.text}}</h2>
@@ -66,8 +67,8 @@
         <div ng-switch-default>
             Unable to render widget
         </div>
-    </div>
         </div>
+        </wam-sortable>
     </div>
 
 

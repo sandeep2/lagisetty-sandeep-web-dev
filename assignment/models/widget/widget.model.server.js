@@ -12,10 +12,36 @@ module.exports = function(){
         findAllWidgets: findAllWidgets,
         deleteWidget: deleteWidget,
         updateWidget: updateWidget,
-        findWidgetById: findWidgetById
+        findWidgetById: findWidgetById,
+        sortWidget: sortWidget
     };
 
     return api;
+
+    function sortWidget(id,start, end) {
+        return Widget
+            .find({_page: id}, function(err, widgets) {
+                widgets.forEach(function(widget) {
+                    if(start >= end) {
+                        if(widget.order === start){
+                            widget.order = end;
+                        }
+                        else if (widget.order >= end && widget.order < start){
+                            widget.order = widget.order + 1;
+                        }
+                    }
+                    else {
+                        if(widget.order > start && widget.order <= end) {
+                            widget.order = widget.order - 1;
+                        }
+                        else if(widget.order === start) {
+                            widget.order = end;
+                        }
+                    }
+                    widget.save();
+                })
+            });
+    }
 
     function createWidget(id,widget){
         widget._page = id;
@@ -35,23 +61,9 @@ module.exports = function(){
     }
 
     function updateWidget(id, widget){
-        return Widget.update(
-            {_id:id},
-            {$set: {
-                name:widget.name || '',
-                text: widget.text || '',
-                description: widget.description || '',
-                placeholder: widget.description || '',
-                url: widget.url || '',
-                width: widget.width || '',
-                height: widget.height || '',
-                rows: widget.rows || 1,
-                size: widget.size || 1,
-                class: widget.class || '',
-                icon: widget.icon || '',
-                deletable: widget.deletable || false,
-                formatted: widget.formatted || false
-            }}
-        );
+        delete widget._id;
+        return Widget.update({_id: id },{
+            $set: widget
+        });
     }
 };

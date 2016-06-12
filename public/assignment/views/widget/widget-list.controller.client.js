@@ -10,6 +10,7 @@
         vm.pageId = $routeParams.pageId;
         vm.getSafeHtml = getSafeHtml;
         vm.getSafeUrl = getSafeUrl;
+        vm.sortWidget = sortWidget;
 
         function init() {
             WidgetService
@@ -21,8 +22,6 @@
                         vm.error = error.data;
                     }
                 );
-            $(".container")
-                .sortable({axis: "y"});
         }
         init();
 
@@ -36,6 +35,11 @@
             var url = "https://www.youtube.com/embed/" + id;
             return $sce.trustAsResourceUrl(url);
 
+        }
+
+        function sortWidget(start,end){
+            WidgetService
+                .sortWidget(vm.pageId,start,end)
         }
     }
 })();

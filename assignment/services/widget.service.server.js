@@ -25,6 +25,7 @@ module.exports = function(app,models){
     app.get("/api/page/:pageId/widget",findAllWidgets);
     app.delete("/api/widget/:widgetId",deleteWidget);
     app.post("/api/upload",upload.single('myFile'),uploadImage);
+    app.put("/api/page/:pageId/widget",sortWidget);
 
     function uploadImage(req,res){
 
@@ -85,16 +86,40 @@ module.exports = function(app,models){
         res.send(result);*/
     }
 
+    function sortWidget(req,res){
+        var id = req.params.pageId;
+        var start = parseInt(req.query.start);
+        var end = parseInt(req.query.end);
+
+        widgetModel
+            .sortWidget(id,start,end)
+            .then(function(widget){
+                res.sendStatus(200);
+            },
+            function(error){
+                res.sendStatus(400).send(error);
+            })
+    }
+
     function  createWidget(req,res){
         var widget = req.body;
         var pageId = req.params.pageId;
 
         widgetModel
-            .createWidget(pageId,widget)
-            .then(function(widget){
-                res.send(widget);
-            },function(error){
-               res.sendStatus(404).send(error);
+            .findAllWidgets(pageId)
+            .then(function(listWidgets){
+
+                widget.order = listWidgets.length;
+                widgetModel
+                .createWidget(pageId,widget)
+                    .then(function(widget){
+                        res.send(widget);
+                    },function(error){
+                        res.sendStatus(404).send(error);
+                    });
+            },
+            function(error){
+                res.send(404).send(error);
             });
 /*        widget._id = (new Date()).getTime()+"";
         widgets.push(widget);
