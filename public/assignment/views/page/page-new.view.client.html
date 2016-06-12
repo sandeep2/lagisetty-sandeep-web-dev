@@ -1,32 +1,35 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
-            <p class="navbar-text pull-left">
-                <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page" class="navbar-link">
+        <p class="navbar-text pull-left">
+            <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page" class="navbar-link">
                   <span class="glyphicon glyphicon-chevron-left">
                   </span>
-                </a>
-            </p>
-            <a class="navbar-brand" href="#">
-                New Page
             </a>
-            <p class="navbar-text pull-right">
-                <a ng-click="model.createPage(name, title)" class="navbar-link">
+        </p>
+        <a class="navbar-brand" href="#">
+            New Page
+        </a>
+        <p class="navbar-text pull-right">
+            <a ng-click="model.createPage(name, title);submitted=true" class="navbar-link">
                   <span class="glyphicon glyphicon-ok pull right">
                   </span>
-                </a>
-            </p>
+            </a>
+        </p>
     </div>
 </nav>
 
 <div class="container">
 
-    <form>
-        <div class="form-group">
+    <form name="newPage">
+        <div class="form-group" ng-class="{ 'has-error': newPage.name.$error.required && submitted}">
             <label for="Name">Name</label>
             <input ng-model="name" type="text"
-                   class="form-control"
-                   id="Name"
+                   class="form-control" name = "name"
+                   id="Name" required
                    placeholder="Page Name">
+                        <span class="redText" ng-show="newPage.name.$error.required && submitted">
+                Page Name is required
+            </span>
         </div>
         <div class="form-group">
             <label for="Description">Title</label>

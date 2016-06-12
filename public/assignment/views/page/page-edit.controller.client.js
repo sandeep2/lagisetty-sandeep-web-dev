@@ -37,15 +37,17 @@
         }
 
         function updatePage(){
-            PageService
-                .updatePage(vm.page,vm.pageId)
-                .then(function(res){
-                        $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page");
-                    },
-                    function(error){
-                        vm.error = "unable to update page"
-                    }
-                )
+            if(vm.page.name) {
+                PageService
+                    .updatePage(vm.page, vm.pageId)
+                    .then(function (res) {
+                            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+                        },
+                        function (error) {
+                            vm.error = "unable to update page"
+                        }
+                    );
+            }
         }
     }
 })();
