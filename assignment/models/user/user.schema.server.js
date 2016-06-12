@@ -7,8 +7,9 @@ module.exports = function(){
         lastName: String,
         email: String,
         dob: Date,
-        dateCreated: {type: Date, default: Date.now}
-    },{collection: "assignment.user"})
+        dateCreated: {type: Date, default: Date.now},
+        websites: [{type: mangoose.Schema.Types.ObjectId,ref: 'Website'}]
+    },{collection: "assignment.user"});
 
     return UserSchema;
 };

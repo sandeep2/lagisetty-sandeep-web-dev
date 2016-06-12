@@ -42,7 +42,8 @@ module.exports = function() {
             {
                 firstName: newUser.firstName,
                 lastName: newUser.lastName,
-                email: newUser.email
+                email: newUser.email,
+                websites: newUser.websites
             }
             }
         );
@@ -51,4 +52,5 @@ module.exports = function() {
     function deleteUser(userId) {
         return User.remove({_id: userId});
     }
+
 };
