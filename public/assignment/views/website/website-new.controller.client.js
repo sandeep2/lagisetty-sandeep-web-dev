@@ -9,15 +9,17 @@
         vm.createWebsite = createWebsite;
 
         function createWebsite(name, description) {
-            WebsiteService
-                .createWebsite(vm.userId, name, description)
-                .then(function(res){
-                        $location.url("/user/"+vm.userId+"/website");
-                    },
-                    function(error){
-                        vm.error = "Unable to create website";
-                    }
-                );
+            if(name != null) {
+                WebsiteService
+                    .createWebsite(vm.userId, name, description)
+                    .then(function (res) {
+                            $location.url("/user/" + vm.userId + "/website");
+                        },
+                        function (error) {
+                            vm.error = "Unable to create website";
+                        }
+                    );
+            }
         }
     }
 })();

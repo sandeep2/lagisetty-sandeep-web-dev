@@ -13,15 +13,17 @@
         vm.createPage = createPage;
 
         function createPage(name, title) {
-            PageService
-                .createPage(vm.websiteId, name, title)
-                .then(function(res){
-                        $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page");
-                    },
-                    function(error) {
-                        vm.error = "Unable to create page";
-                    }
-                );
+            if(name != null) {
+                PageService
+                    .createPage(vm.websiteId, name, title)
+                    .then(function (res) {
+                            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+                        },
+                        function (error) {
+                            vm.error = "Unable to create page";
+                        }
+                    );
+            }
         }
     }
 })();
