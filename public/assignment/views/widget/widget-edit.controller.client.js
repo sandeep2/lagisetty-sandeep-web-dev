@@ -27,15 +27,17 @@
         init();
 
         function updateWidget(){
-            WidgetService
-                .updateWidget(vm.widgetId,vm.widget)
-                .then(function(res){
-                        $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page/"+vm.pageId+"/widget");
-                    },
-                    function(error){
-                        vm.error = "Error editing widget"
-                    }
-                );
+            if(vm.widget.name) {
+                WidgetService
+                    .updateWidget(vm.widgetId, vm.widget)
+                    .then(function (res) {
+                            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
+                        },
+                        function (error) {
+                            vm.error = "Error editing widget"
+                        }
+                    );
+            }
         }
 
         function deleteWidget(Id){
