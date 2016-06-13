@@ -12,9 +12,14 @@
             createWidget: createWidget,
             findWidgetInstance:findWidgetInstance,
             updateWidget: updateWidget,
-            deleteWidget: deleteWidget
+            deleteWidget: deleteWidget,
+            sortWidget: sortWidget
         };
         return api;
+
+        function sortWidget(id,start,end){
+            return $http.put("/api/page/"+id+"/widget?start="+start+"&end="+end);
+        }
 
         function deleteWidget(Id){
             var url = "/api/widget/"+Id;

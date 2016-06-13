@@ -8,7 +8,8 @@ module.exports = function(){
         _website : {type : mongoose.Schema.ObjectId, ref: "Website"},
         name: String,
         title: String,
-        dateCreated: {type:Date,default:Date.now}
+        dateCreated: {type:Date,default:Date.now},
+        widgets: [{type:mongoose.Schema.ObjectId,ref: "Widget"}]
     },
         {collection: "assignment.page"});
 

@@ -20,7 +20,8 @@ module.exports = function(){
       icon: String,
       deleteable: Boolean,
       formatted: Boolean,
-      dateCreated: {type: Date, default: Date.now}},
+      dateCreated: {type: Date, default: Date.now},
+      order: Number},
       {collection: "assignment.widget"});
 
     return WidgetSchema;

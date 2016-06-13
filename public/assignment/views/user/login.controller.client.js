@@ -5,7 +5,6 @@
 
     function LoginController($location, UserService) {
         var vm = this;
-
         vm.login = function(username, password) {
             UserService
                 .findUserByUsernameAndPassword(username, password)
