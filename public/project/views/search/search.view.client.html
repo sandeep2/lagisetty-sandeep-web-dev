@@ -7,34 +7,33 @@
                     </div>
                     <dd class="active"><a ng-click="query.animal = 'all'; petBreeds('dog')">&nbsp;All&nbsp;</a>
                     </dd>
-                    <dd><a ng-click="query.animal = 'dog'; petBreeds('dog')">Dogs</a>
+                    <dd><a ng-click="model.query.animal = 'dog'; model.petBreeds('dog')">Dogs</a>
                     </dd>
-                    <dd><a ng-click="query.animal = 'cat'; petBreeds('cat')">Cats</a>
+                    <dd><a ng-click="model.query.animal = 'cat'; model.petBreeds('cat')">Cats</a>
                     </dd>
-                    <dd><a ng-click="query.animal = 'rabbit'; petBreeds('rabbit')">Rabbits</a>
+                    <dd><a ng-click="model.query.animal = 'rabbit'; model.petBreeds('rabbit')">Rabbits</a>
                     </dd>
-                    <dd><a ng-click="query.animal = 'pig'; petBreeds('pig')">Pigs</a>
+                    <dd><a ng-click="model.query.animal = 'pig'; model.petBreeds('pig')">Pigs</a>
                     </dd>
-                    <dd><a ng-click="query.animal = 'barnyard'; petBreeds('barnyard')">Barnyards</a>
+                    <dd><a ng-click="model.query.animal = 'barnyard'; model.petBreeds('barnyard')">Barnyards</a>
                     </dd>
                 </dl>
             </div>
         </div>
     </section>
-
     <section id="refineFilter">
         <div class="row">
             <div class="small-12 medium-2 large-3 columns">
-                <input ng-model="query.location" type="text" placeholder="Location" />
+                <input ng-model="model.query.location" type="text" placeholder="Location" />
             </div>
             <div class="small-12 medium-3 large-3 columns">
-                <select ng-model="query.breed" id="breed">
+                <select ng-model="model.query.breed" id="breed">
                     <option value="">Breed</option>
-                    <option ng-repeat="breed in breedList" value="{{breed}}">{{breed}}</option>
+                    <option ng-repeat="breed in model.breeds" value="{{breed}}">{{breed}}</option>
                 </select>
             </div>
             <div class="small-6 medium-2 large-2 columns">
-                <select ng-model="query.age" id="age">
+                <select ng-model="model.query.age" id="age">
                     <option value="">Age</option>
                     <option value="baby">Baby</option>
                     <option value="young">Young</option>
@@ -43,15 +42,16 @@
                 </select>
             </div>
             <div class="small-6 medium-2 large-2 columns">
-                <select ng-model="query.gender" id="gender">
+                <select ng-model="model.query.gender" id="gender">
                     <option value="">Gender</option>
                     <option value="M">Male</option>
                     <option value="F">Female</option>
                 </select>
             </div>
             <div class="small-12 medium-3 large-2 columns">
-                <a ng-click="search(query)" class="button expand">Find a Pet</a>
+                <a ng-click="model.searchPets(model.query)" class="button expand">Find a Pet</a>
             </div>
+            {{petsRetrieved}}
         </div>
     </section>
 </div>
