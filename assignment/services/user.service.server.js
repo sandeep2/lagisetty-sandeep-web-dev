@@ -7,10 +7,10 @@ module.exports = function(app, models) {
 
     var userModel = models.userModel;
 
-    app.get("/auth/facebook",passport.authenticate('facebook'));
-    app.get("/auth/facebook/callback",passport.authenticate('facebook',{
-        successRedirect: '/assignment/#/user',
-        failureRedirect: '/assignemnt/#/login'
+    app.get("/auth/facebook", passport.authenticate('facebook'));
+    app.get("/auth/facebook/callback", passport.authenticate('facebook', {
+        successRedirect: '/assignment/#/profile',
+        failureRedirect: '/assignment/#/login'
     }));
 
     app.get("/api/loggedIn",loggedIn);
@@ -33,35 +33,40 @@ module.exports = function(app, models) {
         callbackURL: "http://127.0.0.1:3000/auth/facebook/callback"
     };
 
-    passport.use('facebook',new FacebookStrategy(facebookConfig,facebookLogin));
+    passport.use('facebook', new FacebookStrategy(facebookConfig, facebookLogin));
 
-    function localStrategy(username,passport,done){
+    function localStrategy(username, password, done) {
         userModel
             .findUserByUsername(username)
-            .then(function(user){
-                if(user && brcypt.compareSync(password,user.password)){
-                    done(null,user);
+            .then(
+                function (user) {
+                    if(user && bcrypt.compareSync(password, user.password)) {
+                        done(null, user);
+                    } else {
+                        done(null, false);
+                    }
+                },
+                function(err) {
+                    done(err);
                 }
-                else{
-                    done(null,false);
-                }
-            },function(error){
-               done(error);
-            });
+            );
     }
 
-    function serializeUser(user,done){
-        done(null,user);
+    function serializeUser(user, done) {
+        done(null, user);
     }
 
-    function deserializeUser(user,done){
+    function deserializeUser(user, done) {
         userModel
             .findUserById(user._id)
-            .then(function(user){
-                done(null,user);
-            },function(error){
-               done(err,null);
-            });
+            .then(
+                function(user){
+                    done(null, user);
+                },
+                function(err){
+                    done(err, null);
+                }
+            );
     }
 
     function facebookLogin(token, refreshToken, profile, done) {
@@ -91,6 +96,14 @@ module.exports = function(app, models) {
                     }
                 }
             );
+    }
+
+    function loggedIn(req, res) {
+        if(req.isAuthenticated()) {
+            res.json(req.user);
+        } else {
+            res.send('0');
+        }
     }
 
     function register(req, res) {
@@ -142,13 +155,6 @@ module.exports = function(app, models) {
         res.json(user);
     }
 
-    function loggedIn(req, res) {
-        if(req.isAuthenticated()) {
-            res.json(req.user);
-        } else {
-            res.send('0');
-        }
-    }
 
 
     function createUser(req, res) {

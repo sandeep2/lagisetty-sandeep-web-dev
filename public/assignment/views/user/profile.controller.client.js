@@ -10,18 +10,13 @@
         vm.logout = logout;
 
         var id = $rootScope.currentUser._id;
-
+        
         function init() {
-            if (!userId && $rootScope.currentUser) {
-                vm.user = $rootScope.currentUser;
-            }
-            else {
                 UserService
                     .findUserById(id)
                     .then(function (response) {
                         vm.user = response.data;
                     });
-            }
         }
         init();
 

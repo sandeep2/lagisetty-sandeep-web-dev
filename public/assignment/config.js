@@ -19,7 +19,7 @@
                 controllerAs:"model"
             })
 
-            .when('/user/:id',{
+            .when('/user',{
                 templateUrl:"views/user/profile.view.client.html",
                 controller:"ProfileController",
                 controllerAs:"model",
