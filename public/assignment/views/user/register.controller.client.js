@@ -23,7 +23,7 @@
                             else {
                                 if (password === confirmPassword) {
                                     UserService
-                                        .createUser(username, password)
+                                        .register(username, password)
                                         .then(
                                             function (res) {
                                                 var user = res.data;

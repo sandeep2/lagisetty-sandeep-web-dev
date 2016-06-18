@@ -22,7 +22,10 @@
             .when('/user/:id',{
                 templateUrl:"views/user/profile.view.client.html",
                 controller:"ProfileController",
-                controllerAs:"model"
+                controllerAs:"model",
+                resolve:{
+                    loggedIn: checkLoggedIn
+                }
             })
 
             .when("/user/:userId/website",{
@@ -78,6 +81,33 @@
             })
             .otherwise({
                 redirectTo:"/login"
-            })
+            });
+
+        function checkLoggedIn(UserService, $location, $q, $rootScope) {
+
+            var deferred = $q.defer();
+
+            UserService
+                .loggedIn()
+                .then(
+                    function(response) {
+                        var user = response.data;
+                        console.log(user);
+                        if(user == '0') {
+                            $rootScope.currentUser = null;
+                            deferred.reject();
+                            $location.url("/login");
+                        } else {
+                            $rootScope.currentUser = user;
+                            deferred.resolve();
+                        }
+                    },
+                    function(err) {
+                        $location.url("/login");
+                    }
+                );
+
+            return deferred.promise;
+        }
     }
 })();
