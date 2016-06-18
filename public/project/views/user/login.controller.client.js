@@ -1,0 +1,25 @@
+/**
+ * Created by slagisetty on 6/18/2016.
+ */
+(function(){
+    angular
+        .module("WhereIsMyPet")
+        .controller("LoginController", LoginController);
+
+    function LoginController($location, UserService) {
+        var vm = this;
+        vm.login = function(username, password) {
+            UserService
+                .findUserByUsernameAndPassword(username, password)
+                .then(function(response){
+                    var user = response.data;
+                    if(user) {
+                        var id = user._id;
+                        $location.url("/user/" + user._id);
+                    } else {
+                        vm.error = "User not found";
+                    }
+                });
+        }
+    }
+})();

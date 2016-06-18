@@ -1,12 +1,57 @@
+/**
+ * Created by slagisetty on 6/18/2016.
+ */
+var nodemailer = require('nodemailer');
+var smtpTransport = require('nodemailer-smtp-transport');
 module.exports = function(app, models) {
 
     var userModel = models.userModel;
 
-    app.post("/api/user", createUser);
-    app.get("/api/user", getUsers);
-    app.get("/api/user/:userId", findUserById);
-    app.put("/api/user/:userId", updateUser);
-    app.delete("/api/user/:userId", deleteUser);
+    app.post("/api/project/user", createUser);
+    app.get("/api/project/user", getUsers);
+    app.get("/api/project/user/:userId", findUserById);
+    app.put("/api/project/user/:userId", updateUser);
+    app.delete("/api/project/user/:userId", deleteUser);
+    app.post("/api/project/forgot",forgotEmail)
+
+    var transport = nodemailer.createTransport(smtpTransport({
+        service: 'gmail',
+        auth: {
+            user: 'noreply.whereismypet@gmail.com', // my mail
+            pass: 'Whatiswhat1'
+        }
+    }));
+    
+    function forgotEmail(req,res){
+        var forgotUser = req.body;
+        userModel
+            .findUserByEmail(forgotUser.email)
+            .then(function (response) {
+                if(response === null){
+                    console.log(response);
+                    res.send(response);
+                }
+                else{
+                    transport.sendMail({
+                        from: "noreply.whereismypet", // sender address
+                        to: forgotUser.email, // comma separated list of receivers
+                        subject: "Password ✔", // Subject line
+                        text: "The password for your account is :" + response.password// plaintext body
+                    },function(error,response){
+                        if(error)
+                        {
+                            res.send(error);
+                        }
+                        else {
+                            res.send("True");
+                        }
+                        });
+                    }
+
+            },function(error){
+                res.send(error);
+            });
+    }
 
     function createUser(req, res) {
         var newUser = req.body;
@@ -105,12 +150,17 @@ module.exports = function(app, models) {
     function getUsers(req, res) {
         var username = req.query["username"];
         var password = req.query["password"];
-        if(username && password) {
+        var email = req.query["email"];
+        if(email){
+            findUserByEmail(email,res);
+        }
+        else if(username && password) {
             findUserByCredentials(username, password, res);
         } else if(username) {
             findUserByUsername(username, res);
         }
     }
+
     function findUserByCredentials(username, password, res) {
         userModel
             .findUserByCredentials(username, password)
@@ -144,5 +194,19 @@ module.exports = function(app, models) {
                 function(error){
                     res.send(error);
                 });
+    }
+    
+    function findUserByEmail(email,res){
+        userModel
+            .findUserByEmail(email)
+            .then(function (response) {
+                if(response === null){
+                    res.send(response);
+                } else{
+                    res.send("True");
+                }
+            },function (error) {
+                res.send(error);
+            });
     }
 };

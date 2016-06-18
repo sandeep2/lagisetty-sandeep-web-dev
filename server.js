@@ -24,6 +24,8 @@ app.use(express.static(__dirname + '/public'));
 var assignment = require('./assignment/app.js');
 assignment(app);
 
+var project = require('./project/app.js');
+project(app);
 
 var ipaddress = process.env.OPENSHIFT_NODEJS_IP;
 var port      = process.env.OPENSHIFT_NODEJS_PORT || 3000;
