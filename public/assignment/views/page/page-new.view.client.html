@@ -19,7 +19,7 @@
 </nav>
 
 <div class="container">
-
+    <div ng-if="model.error" class="alert alert-danger">{{model.error}}</div>
     <form name="newPage">
         <div class="form-group" ng-class="{ 'has-error': newPage.name.$error.required && submitted}">
             <label for="Name">Name</label>

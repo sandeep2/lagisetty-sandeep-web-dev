@@ -19,7 +19,7 @@
 </nav>
 
 <div class="container">
-
+    <div ng-if="model.error" class="alert alert-danger">{{model.error}}</div>
     <form name="editWebsite">
         <div class="form-group" ng-class="{ 'has-error': editWebsite.name.$error.required && submitted}">
             <label for="website-name">Website Name</label>
@@ -52,7 +52,7 @@
             </a>
         </p>
         <p class="navbar-text pull-right">
-            <a href="#/user/{{model.userId}}">
+            <a href="#/user">
                 <span class="glyphicon glyphicon-user"></span>
             </a>
         </p>
