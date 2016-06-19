@@ -7,7 +7,7 @@
         .controller("RegisterController",RegisterController);
 
 
-    function RegisterController($location,UserService){
+    function RegisterController($rootScope,$location,UserService){
         var vm = this;
 
         vm.register = function(username,password,confirmPassword){
@@ -27,9 +27,17 @@
                                         .then(
                                             function (res) {
                                                 var user = res.data;
-                                                $location.url("/user/" + user._id);
+                                                if(user){
+                                                    $rootScope.currentUser = user;
+                                                    $location.url("/user");
+                                                }
+                                                else{
+                                                    $rootScope.currentUser = null;
+                                                    vm.error = "Error in registering"
+                                                }
                                             },
                                             function (error) {
+                                                $rootScope.currentUser = null;
                                                 vm.error = "Registration Failure";
 
                                             });

@@ -24,8 +24,10 @@
             UserService
                 .logout()
                 .then(function(response){
+                    $rootScope.currentUser = null;
                     $location.url("/login");
-                },function () {
+                },function (error) {
+                    $rootScope.currentUser = null;
                     $location.url("/login");
                 })
         }
