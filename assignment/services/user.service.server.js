@@ -22,18 +22,18 @@ module.exports = function(app, models) {
     app.get("/api/user/:userId", findUserById);
     app.put("/api/user/:userId", updateUser);
     app.delete("/api/user/:userId", deleteUser);
+    
+    var facebookConfig = {
+        clientID : process.env.FACEBOOK_CLIENT_ID,
+        clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+        callbackURL: process.env.FACEBOOK_CALLBACK_URL
+    };
 
     passport.use('wam', new LocalStrategy(localStrategy));
     passport.use('facebook', new FacebookStrategy(facebookConfig, facebookLogin));
     passport.serializeUser(serializeUser);
     passport.deserializeUser(deserializeUser);
 
-
-    var facebookConfig = {
-        clientID : "1825034281057848",
-        clientSecret: "d7dbdf5567732677296a4a24376e6ab4",
-        callbackURL: "http://127.0.0.1:3000/auth/facebook/callback"
-    };
 
     function localStrategy(username, password, done) {
         userModel
