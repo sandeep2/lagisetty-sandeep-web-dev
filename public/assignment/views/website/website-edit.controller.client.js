@@ -31,7 +31,7 @@
         }
 
         function updateWebsite(){
-            if(vm.website.name) {
+            if(vm.website.name && vm.website.name != "") {
                 WebsiteService
                     .updateWebsite(vm.website, vm.websiteId)
                     .then(function (res) {
@@ -40,6 +40,9 @@
                         function (error) {
                             vm.error = "unable to update website"
                         });
+            }
+            else{
+                vm.error = "Please Enter a Website Name";
             }
         }
 

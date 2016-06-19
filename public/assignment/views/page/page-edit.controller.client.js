@@ -37,7 +37,7 @@
         }
 
         function updatePage(){
-            if(vm.page.name) {
+            if(vm.page.name && vm.page.name != '') {
                 PageService
                     .updatePage(vm.page, vm.pageId)
                     .then(function (res) {
@@ -47,6 +47,9 @@
                             vm.error = "unable to update page"
                         }
                     );
+            }
+            else{
+                vm.error = "Please enter a page name";
             }
         }
     }
