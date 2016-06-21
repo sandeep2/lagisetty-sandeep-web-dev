@@ -34,15 +34,14 @@
         }*/
 
         vm.searchPets = function (query) {
-            console.log('starting search');
             PetSearchService.searchPets(query, function (pets) {
                 $rootScope.petsRetrieved = pets;
                 $rootScope.$apply();
             });
             if (query.animal == 'all') {
-                $scope.searchTitle = "pets near " + query.location;
+                vm.searchTitle = "pets near " + query.location;
             } else {
-                $scope.searchTitle = query.animal + 's near ' + query.location;
+                vm.searchTitle = query.animal + 's near ' + query.location;
             }
         };
     }

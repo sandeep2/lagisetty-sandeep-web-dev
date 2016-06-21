@@ -55,7 +55,26 @@
                href="#/register">Register</a>
             <a class="btn btn-success btn-block"
                href="#/login">Login</a>
-            {{petsRetrieved}}
+            </div>
+        </section>
+
+    <div class="row" infinite-scroll-distance="1">
+        <div ng-repeat="pet in petsRetrieved">
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <span class="label label-default pull-right">Name: {{pet.name}}</span>
+                    <a>
+                        <img class="img-responsive" ng-src="{{pet.image}}"/>
+                    </a>
+                    <div class="name">
+                        <a>{{ pet.name }}</a>
+                        <p class="breed">{{pet.breed}}</p>
+                        <a class="btn btn-primary" role="button">
+                            <span class="fa fa-star" aria-hidden="true"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
-    </section>
+    </div>
 </div>
