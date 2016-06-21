@@ -9,7 +9,7 @@
         vm.createWebsite = createWebsite;
 
         function createWebsite(name, description) {
-            if(name != null) {
+            if(name != null && name != "") {
                 WebsiteService
                     .createWebsite(vm.userId, name, description)
                     .then(function (res) {
@@ -19,6 +19,9 @@
                             vm.error = "Unable to create website";
                         }
                     );
+            }
+            else{
+                vm.error = "Please enter a website name"
             }
         }
     }

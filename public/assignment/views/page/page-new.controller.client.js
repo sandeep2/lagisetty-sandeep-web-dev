@@ -13,7 +13,7 @@
         vm.createPage = createPage;
 
         function createPage(name, title) {
-            if(name != null) {
+            if(name != null && name != '') {
                 PageService
                     .createPage(vm.websiteId, name, title)
                     .then(function (res) {
@@ -23,6 +23,9 @@
                             vm.error = "Unable to create page";
                         }
                     );
+            }
+            else{
+                vm.error = "Please enter a page name";
             }
         }
     }
