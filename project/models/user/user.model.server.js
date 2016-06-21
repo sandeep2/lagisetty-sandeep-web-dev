@@ -11,10 +11,14 @@ module.exports = function() {
         findUserByEmail: findUserByEmail,
         findUserById: findUserById,
         updateUser: updateUser,
-        deleteUser: deleteUser
+        deleteUser: deleteUser,
+        findGoogleUser:findGoogleUser
     };
     return api;
 
+    function findGoogleUser(id) {
+        return User.findOne({'google.id':id})
+    }
     function createUser(user) {
         return User.create(user);
         // User.create(user, function(err, user){
@@ -47,8 +51,7 @@ module.exports = function() {
             {
                 firstName: newUser.firstName,
                 lastName: newUser.lastName,
-                email: newUser.email,
-                websites: newUser.websites
+                email: newUser.email
             }
             }
         );

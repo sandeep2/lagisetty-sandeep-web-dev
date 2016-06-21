@@ -6,12 +6,13 @@
         .module("WhereIsMyPet")
         .controller("ProfileController", ProfileController);
 
-    function ProfileController($location, $routeParams, UserService) {
+    function ProfileController($location, $routeParams, UserService, $rootScope) {
         var vm = this;
         vm.updateUser = updateUser;
         vm.unregister = unregister;
+        vm.logout = logout;
 
-        var id = $routeParams.id;
+        var id = $rootScope.currentUser._id;
 
         function init() {
             UserService
@@ -20,17 +21,28 @@
                     vm.user = response.data;
                 });
         }
-
         init();
+
+        function logout(){
+            UserService
+                .logout()
+                .then(function(response){
+                    $rootScope.currentUser = null;
+                    $location.url("/login");
+                },function (error) {
+                    $rootScope.currentUser = null;
+                    $location.url("/login");
+                })
+        }
 
         function unregister() {
             UserService
                 .deleteUser(id)
                 .then(
-                    function () {
+                    function(){
                         $location.url("/login");
                     },
-                    function () {
+                    function() {
                         vm.error = "Unable to remove user"
                     }
                 );
@@ -40,13 +52,14 @@
             UserService
                 .updateUser(id, vm.user)
                 .then(
-                    function (response) {
+                    function(response) {
                         vm.success = "Updated successfully";
                     },
-                    function (error) {
+                    function(error) {
                         vm.error = "Unable to update user"
                     }
                 );
         }
     }
+
 })();

@@ -6,19 +6,23 @@
         .module("WhereIsMyPet")
         .controller("LoginController", LoginController);
 
-    function LoginController($location, UserService) {
+    function LoginController($location, UserService,$rootScope) {
         var vm = this;
         vm.login = function(username, password) {
             UserService
-                .findUserByUsernameAndPassword(username, password)
+                .login(username, password)
                 .then(function(response){
                     var user = response.data;
-                    if(user) {
-                        var id = user._id;
-                        $location.url("/user/" + user._id);
+                    if(user && user._id) {
+                        $rootScope.currentUser  = user;
+                        $location.url("/user");
                     } else {
+                        $rootScope.currentUser = null;
                         vm.error = "User not found";
                     }
+                },function(error){
+                    $rootScope.currentUser = null;
+                    vm.error = "User not found"
                 });
         }
     }

@@ -8,6 +8,10 @@ module.exports = function(){
         email: String,
         dob: Date,
         dateCreated: {type: Date, default: Date.now},
+        google:{
+            id: String,
+            token: String
+        }
     },{collection: "project.user"});
 
     return UserSchema;
