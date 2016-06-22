@@ -52,9 +52,14 @@
                 <a ng-click="model.searchPets(model.query)" class="button expand">Find a Pet</a>
             </div>
             <a class="btn btn-success btn-block"
+               ng-if="currentUser == null"
                href="#/register">Register</a>
             <a class="btn btn-success btn-block"
+               ng-if="currentUser == null"
                href="#/login">Login</a>
+            <a class="btn btn-success btn-block"
+               ng-if="currentUser != null"
+               href="#/user">profile</a>
             </div>
         </section>
 
@@ -69,8 +74,11 @@
                     <div class="name">
                         <a>{{ pet.name }}</a>
                         <p class="breed">{{pet.breed}}</p>
-                        <a class="btn btn-primary" role="button">
+                        <a class="btn btn-primary" role="button" ng-click="model.likePets(pet)" ng-show="currentUser ==null || currentUser.favorites.indexOf(pet.id) == -1">
                             <span class="fa fa-star" aria-hidden="true"></span>
+                        </a>
+                        <a class="btn btn-warning" role="button" ng-click="model.unlikePets(pet)" ng-show="currentUser != null && currentUser.favorites.indexOf(pet.id) != -1">
+                            <span class="fa fa-star-o" aria-hidden="true"></span>
                         </a>
                     </div>
                 </div>

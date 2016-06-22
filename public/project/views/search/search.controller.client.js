@@ -3,7 +3,7 @@
         .module("WhereIsMyPet")
         .controller("SearchController", SearchController);
 
-    function SearchController($http,$rootScope,$location,PetSearchService,$scope) {
+    function SearchController($http,$rootScope,$location,PetSearchService,$scope,UserService) {
         var vm = this;
         vm.petBreeds = petBreeds;
         vm.query = {
@@ -21,18 +21,6 @@
 
         }
         
-/*        function searchPets(selectedItems) {
-            PetSearchService
-                .searchPets(selectedItems)
-                .then(function (response) {
-                        $rootScope.petsRetrieved = response;
-                        $rootScope.apply();
-                    },
-                    function (error) {
-                        vm.error = "No pets for found for the selected combination";
-                    });
-        }*/
-
         vm.searchPets = function (query) {
             PetSearchService.searchPets(query, function (pets) {
                 $rootScope.petsRetrieved = pets;
@@ -44,5 +32,18 @@
                 vm.searchTitle = query.animal + 's near ' + query.location;
             }
         };
+        
+        vm.likePets = function (pet) {
+            if($rootScope.currentUser == null){
+                $('#notLoggedInDialog').modal('show');
+                return;
+            }
+            userId = $rootScope.currentUser._id;
+            UserService.likePets(userId,pet);
+        }
+
+        $('.sign-in-up-buttons').click(function (e) {
+            $('#notLoggedInDialog').modal('hide');
+        });
     }
 })();

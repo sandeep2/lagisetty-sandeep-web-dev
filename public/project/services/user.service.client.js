@@ -18,7 +18,8 @@
             updateUser: updateUser,
             deleteUser: deleteUser,
             findUserPresent: findUserPresent,
-            findUserByEmail: findUserByEmail
+            findUserByEmail: findUserByEmail,
+            likePets: likePets
         };
         return api;
 
@@ -68,6 +69,11 @@
             return $http.put(url, newUser);
         }
 
+        function likePets (id,pet){
+            var url = "/api/project/like/"+id;
+            return $http.put(url,pet);
+        }
+        
         function findUserById(id) {
             var url = "/api/project/user/" + id;
             return $http.get(url);
@@ -85,5 +91,6 @@
             var url = "/api/project/user?username="+username+"&password="+password;
             return $http.get(url);
         }
+
     }
 })();

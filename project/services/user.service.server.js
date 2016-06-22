@@ -28,6 +28,7 @@ module.exports = function(app, models) {
     app.put("/api/project/user/:userId", updateUser);
     app.delete("/api/project/user/:userId", deleteUser);
     app.post("/api/project/forgot",forgotEmail);
+    app.put("/api/project/like/:userId",likePet);
 
     var googleConfig = {
         clientID:"90027190565-pf17a3uoq1ctiksrgcf4el9inido5d2u.apps.googleusercontent.com",
@@ -167,7 +168,29 @@ module.exports = function(app, models) {
             res.send('0');
         }
     }
+    function likePet(req,res) {
+        var liked = req.body;
+        var id = req.params.userId;
+        userModel
+            .findUserById(id)
+            .then(function (user) {
+                var favorites = user.favorites;
+                favorites.push(liked.id);
+                user.favorites = favorites;
 
+                userModel
+                    .updateUser(user._id,user)
+                    .then(function(response){
+                        res.send(200);
+                    },
+                    function(error){
+                        res.sendStatus(400);
+                    })
+            },
+            function (error) {
+                res.send("unable to add the pet to favorite list")
+            })
+    }
     function login(req, res) {
         // passport authenticates user by the time it reaches this code.
         // passport also stores the user in the request. So all that's left to do is return it.

@@ -8,6 +8,7 @@ module.exports = function(){
         email: String,
         dob: Date,
         dateCreated: {type: Date, default: Date.now},
+        favorites:[String],
         google:{
             id: String,
             token: String
