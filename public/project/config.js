@@ -28,10 +28,31 @@
                 controller:"ForgotController",
                 controllerAs:"model"
             })
+            .when('/petProfile/:id',{
+                templateUrl:"views/petProfile/pet-profile.view.client.html",
+                controller: "PetProfileController",
+                controllerAs: "model"
+            })
             .when('/user',{
                 templateUrl:"views/user/profile.view.client.html",
                 controller:"ProfileController",
                 controllerAs:"model",
+                resolve:{
+                    loggedIn: checkLoggedIn
+                }
+            })
+            .when("/user/:userId/pets",{
+                templateUrl: "views/petProfile/pet-user.view.client.html",
+                controller: "PetUserController",
+                controllerAs: "model",
+                resolve:{
+                    loggedIn: checkLoggedIn
+                }
+            })
+            .when("/admin",{
+                templateUrl:"views/admin/admin.view.client.html",
+                controller: "AdminController",
+                controllerAs: "model",
                 resolve:{
                     loggedIn: checkLoggedIn
                 }

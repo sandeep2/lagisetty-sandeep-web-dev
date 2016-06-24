@@ -22,6 +22,10 @@
                 Password is required
             </span>
         </div>
+        <span>
+        <input ng-model="checkbox" type="checkbox" ng-true-value="1" ng-false-value="0" ng-checked="checkbox == 1" aria-label="User?">
+        </span>
+        <p>User ?</p>
         <a ng-click="model.login(username,password);submitted=true" class="btn btn-primary btn-block">Login</a>
         <a class="btn btn-success btn-block"
            href="#/register">Register</a>

@@ -69,10 +69,10 @@
                 <div class="thumbnail">
                     <span class="label label-default pull-right">Name: {{pet.name}}</span>
                     <a>
-                        <img class="img-responsive" ng-src="{{pet.image}}"/>
+                        <img class="img-responsive" ng-src="{{pet.image[0]}}"/>
                     </a>
                     <div class="name">
-                        <a>{{ pet.name }}</a>
+                        <a href="#/petProfile/{{pet.id}}">{{ pet.name }}</a>
                         <p class="breed">{{pet.breed}}</p>
                         <a class="btn btn-primary" role="button" ng-click="model.likePets(pet)" ng-show="currentUser ==null || currentUser.favorites.indexOf(pet.id) == -1">
                             <span class="fa fa-star" aria-hidden="true"></span>

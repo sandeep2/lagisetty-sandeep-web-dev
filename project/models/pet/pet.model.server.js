@@ -11,12 +11,22 @@ module.exports = function() {
         createPet: createPet,
         findPetById: findPetById,
         deletePet: deletePet,
-        updatePet: updatePet
+        updatePet: updatePet,
+        getUserPets: getUserPets
     };
     return api;
 
+    function getUserPets(favorites) {
+        pets = Pet.find({
+            'petId': {$in: favorites}
+        });
+
+        return pets;
+    }
+
     function createPet(pet) {
-        return Pet.create(pet);
+        pet = Pet.create(pet);
+        return pet;
     }
 
     function findPetById(petId) {

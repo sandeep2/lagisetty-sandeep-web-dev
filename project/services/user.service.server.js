@@ -11,6 +11,7 @@ var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 module.exports = function(app, models) {
 
     var userModel = models.userModel;
+    var petModel = models.petModel;
 
     app.get('/auth/google',passport.authenticate('google', { scope : ['profile', 'email'] }));
     app.get('/auth/google/callback',
@@ -29,6 +30,7 @@ module.exports = function(app, models) {
     app.delete("/api/project/user/:userId", deleteUser);
     app.post("/api/project/forgot",forgotEmail);
     app.put("/api/project/like/:userId",likePet);
+    app.get("/api/project/pets/:userId",userPets);
 
     var googleConfig = {
         clientID:"90027190565-pf17a3uoq1ctiksrgcf4el9inido5d2u.apps.googleusercontent.com",
@@ -168,6 +170,25 @@ module.exports = function(app, models) {
             res.send('0');
         }
     }
+    
+    function userPets(req,res){
+        var id = req.params.userId;
+        userModel
+            .findUserById(id)
+            .then(function(response){
+                var favorites = response.favorites;
+                petModel
+                    .getUserPets(favorites)
+                    .then(function(response){
+                        res.json(response);
+                    },function(error){
+                        res.send(400);
+                    })
+                
+            },function(error){
+                res.send(400);
+            });
+    }
     function likePet(req,res) {
         var liked = req.body;
         var id = req.params.userId;
@@ -175,19 +196,27 @@ module.exports = function(app, models) {
             .findUserById(id)
             .then(function (user) {
                 var favorites = user.favorites;
-                favorites.push(liked.id);
+                favorites.push(liked.petId);
                 user.favorites = favorites;
 
                 userModel
                     .updateUser(user._id,user)
                     .then(function(response){
-                        res.send(200);
+                        petModel
+                            .createPet(liked)
+                            .then(function (response) {
+                                res.send(200);
+                            },function(error){
+                                res.sendStatus(400).send("error in creating pet");
+                            })
                     },
                     function(error){
+                        console.log(2);
                         res.sendStatus(400);
                     })
             },
             function (error) {
+                console.log(1);
                 res.send("unable to add the pet to favorite list")
             })
     }

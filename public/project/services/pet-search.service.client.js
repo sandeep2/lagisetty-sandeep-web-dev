@@ -19,9 +19,9 @@
 
         function getPet(id,callback){
             $.getJSON('http://api.petfinder.com/pet.get?format=json&key=' + apiKey + '&callback=?&id=' + id)
-                .success(function (newPet) {
+                .success(function (response) {
                     var pet = convertJson(response.petfinder.pet);
-                    callback(petProfile);
+                    callback(pet);
                 });
         }
 
@@ -89,6 +89,9 @@
                 if (value["$t"]) {
                     pet[key] = value["$t"];
                 }
+                if (key == "contact"){
+                    pet["contact"] = getContact(value)
+                }
                 if (value["photos"]) {
 
                     pet["image"] = getImage(value["photos"]["photo"]);
@@ -100,16 +103,26 @@
             });
             return pet;
         }
+        
+        function getContact(contact) {
+            var newContact = {};
+            angular.forEach(contact, function (value, key) {
+                if (value["$t"]){
+                    newContact[key] = value["$t"];
+                }
+            });
+            return newContact;
+        }
 
         function getImage(array) {
-            var img = "";
+            var img = [];
             angular.forEach(array, function (photo) {
                 if (photo["@size"] == 'pn') {
-                    img = photo['$t'];
+                    img.push(photo['$t']);
                 }
             });
 
-            return (img) ? img : "../../stylesheets/img/sloth.jpg";
+            return img;
         }
 
     }

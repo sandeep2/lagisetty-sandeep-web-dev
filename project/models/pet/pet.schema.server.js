@@ -12,7 +12,7 @@ module.exports = function(){
         age: String,
         breeds: String,
         contact: String
-    },{collection: "project.user"});
+    },{collection: "project.pet"});
 
     return PetSchema;
 };

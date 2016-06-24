@@ -19,10 +19,14 @@
             deleteUser: deleteUser,
             findUserPresent: findUserPresent,
             findUserByEmail: findUserByEmail,
-            likePets: likePets
+            likePets: likePets,
+            userPets: userPets
         };
         return api;
-
+        
+        function userPets(id){
+            return $http.get("/api/project/pets/"+id)
+        }
         function loggedIn(){
             return $http.get("/api/project/loggedIn");
         }
@@ -59,6 +63,16 @@
             return $http.post("/api/project/user", user);
         }
 
+        function likePets (id,pet){
+            var newPet = {
+                petId: pet.id,
+                age: pet.age,
+                name: pet.name
+            };
+            var url = "/api/project/like/"+id;
+            return $http.put(url,newPet);
+        }
+
         function deleteUser(userId) {
             var url = "/api/project/user/" + userId;
             return $http.delete(url);
@@ -69,10 +83,6 @@
             return $http.put(url, newUser);
         }
 
-        function likePets (id,pet){
-            var url = "/api/project/like/"+id;
-            return $http.put(url,pet);
-        }
         
         function findUserById(id) {
             var url = "/api/project/user/" + id;
