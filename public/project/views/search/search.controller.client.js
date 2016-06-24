@@ -11,6 +11,7 @@
            animal: 'all'
         };
         $rootScope.petsRetrieved = [];
+        console.log($rootScope.currentUser.favorites);
 
         function petBreeds (animal) {
             PetSearchService
@@ -32,6 +33,7 @@
                 vm.searchTitle = query.animal + 's near ' + query.location;
             }
         };
+
         
         vm.likePets = function (pet) {
             if($rootScope.currentUser == null){
@@ -39,8 +41,28 @@
                 return;
             }
             userId = $rootScope.currentUser._id;
-            UserService.likePets(userId,pet);
-        }
+            UserService
+                .likePets(userId,pet)
+                .then(function(user){
+                    console.log(user.favorites);
+                    $rootScope.currentUser.favorites = user.data.favorites;
+                    console.log($rootScope.currentUser.favorites);
+                },function(error){
+                    vm.error = "error in liking pet"
+                })
+        };
+        
+        vm.unlikePets = function(pet){
+          userId = $rootScope.currentUser._id;
+            UserService
+                .unlikePets(userId,pet)
+                .then(function(user){
+                    $rootScope.currentUser.favorites = user.data.favorites;
+                },function (error) {
+                   vm.error = "Error in unliking pets";
+                });
+            
+        };
 
         $('.sign-in-up-buttons').click(function (e) {
             $('#notLoggedInDialog').modal('hide');

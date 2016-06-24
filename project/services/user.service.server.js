@@ -30,7 +30,9 @@ module.exports = function(app, models) {
     app.delete("/api/project/user/:userId", deleteUser);
     app.post("/api/project/forgot",forgotEmail);
     app.put("/api/project/like/:userId",likePet);
+    app.put("/api/project/unlike/:userId",unlikePet);
     app.get("/api/project/pets/:userId",userPets);
+    app.get("/api/project/allLikes/:petId", allLikes);
 
     var googleConfig = {
         clientID:"90027190565-pf17a3uoq1ctiksrgcf4el9inido5d2u.apps.googleusercontent.com",
@@ -189,6 +191,44 @@ module.exports = function(app, models) {
                 res.send(400);
             });
     }
+    
+    function allLikes(req,res){
+        var petId = req.params.petId;
+        
+        userModel
+            .findAllLikes(petId)
+            .then(function(response){
+                res.send(response);
+            },function(error){
+               res.send(400); 
+            });
+    }
+    
+    function unlikePet(req,res){
+        var unliked = req.body;
+        var userId = req.params.userId;
+
+        userModel
+            .findUserById(userId)
+            .then(function(user){
+                var favorites = user.favorites;
+                var index = favorites.indexOf(unliked.id);
+                console.log(index);
+                favorites.splice(index,1);
+                user.favorites = favorites;
+                userModel
+                    .updateUser(user._id,user)
+                    .then(function(resp){
+                        res.send(user);
+                    },function(error){
+                        res.send(400);
+                    });
+                
+            },function(error){
+                res.send(400);
+            });
+    }
+
     function likePet(req,res) {
         var liked = req.body;
         var id = req.params.userId;
@@ -205,9 +245,9 @@ module.exports = function(app, models) {
                         petModel
                             .createPet(liked)
                             .then(function (response) {
-                                res.send(200);
+                                res.send(user);
                             },function(error){
-                                res.sendStatus(400).send("error in creating pet");
+                                res.send(user);
                             })
                     },
                     function(error){
@@ -220,6 +260,8 @@ module.exports = function(app, models) {
                 res.send("unable to add the pet to favorite list")
             })
     }
+
+
     function login(req, res) {
         // passport authenticates user by the time it reaches this code.
         // passport also stores the user in the request. So all that's left to do is return it.
@@ -331,7 +373,7 @@ module.exports = function(app, models) {
         } else if(username) {
             findUserByUsername(username, res);
         } else {
-            res.send(users);
+            findAllUsers(res);
         }
     }
 
@@ -374,6 +416,16 @@ module.exports = function(app, models) {
             });
     }
 
+    function findAllUsers(res){
+        userModel
+            .findAllUsers()
+            .then(function(users){
+                res.send(users);
+            },function(error){
+            res.send(400)
+        });
+    }
+    
     function findUserByCredentials(username, password,req, res) {
         userModel
             .findUserByCredentials(username, password)

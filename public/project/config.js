@@ -11,7 +11,10 @@
             .when('/search',{
                 templateUrl: "views/search/search.view.client.html",
                 controller: "SearchController",
-                controllerAs:"model"
+                controllerAs:"model",
+                resolve:{
+                    loggedIn: checkLoggedIn
+                }
             })
             .when('/login',{
                 templateUrl: "views/user/login.view.client.html",

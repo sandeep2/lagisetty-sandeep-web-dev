@@ -4,7 +4,7 @@
 module.exports = function(){
     var mangoose = require("mongoose");
     var PetSchema = mangoose.Schema({
-        petId: {type: String, required: true},
+        petId: {type: String, required: true, unique: true},
         media:[String],
         description: String,
         sex: String,

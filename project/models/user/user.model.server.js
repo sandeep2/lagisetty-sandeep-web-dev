@@ -12,10 +12,21 @@ module.exports = function() {
         findUserById: findUserById,
         updateUser: updateUser,
         deleteUser: deleteUser,
-        findGoogleUser:findGoogleUser
+        findGoogleUser:findGoogleUser,
+        findAllUsers: findAllUsers,
+        findAllLikes: findAllLikes
     };
     return api;
 
+    function findAllLikes(id) {
+        users = User.find({favorites:{$elemMatch:{$in:[id]}}});
+        return users;
+    }
+
+    function findAllUsers(){
+        return User.find();
+    }
+    
     function findGoogleUser(id) {
         return User.findOne({'google.id':id})
     }

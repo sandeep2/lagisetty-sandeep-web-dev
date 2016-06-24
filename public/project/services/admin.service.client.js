@@ -6,7 +6,7 @@
         .module("WhereIsMyPet")
         .factory("AdminService", AdminService);
 
-    function UserService($http) {
+    function AdminService($http) {
         var api = {
             login: login,
             logout: logout,

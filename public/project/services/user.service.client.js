@@ -12,6 +12,7 @@
             login: login,
             logout: logout,
             loggedIn: loggedIn,
+            findAllUsers: findAllUsers,
             createUser: createUser,
             findUserByUsernameAndPassword: findUserByUsernameAndPassword,
             findUserById: findUserById,
@@ -20,9 +21,21 @@
             findUserPresent: findUserPresent,
             findUserByEmail: findUserByEmail,
             likePets: likePets,
-            userPets: userPets
+            unlikePets: unlikePets,
+            userPets: userPets,
+            getAllLike: getAllLike
         };
         return api;
+        
+        function getAllLike(id){
+            url = "/api/project/allLikes/"+id;
+            return $http.get(url);
+        }
+        
+        function unlikePets(id,pet){
+            var url = "/api/project/unlike/"+id;
+            return $http.put(url,pet);
+        }
         
         function userPets(id){
             return $http.get("/api/project/pets/"+id)
@@ -41,6 +54,10 @@
                 password: password
             };
             return $http.post("/api/project/login",user);
+        }
+        
+        function findAllUsers(){
+            return $http.get("/api/project/user");
         }
 
         function register(username,password){
