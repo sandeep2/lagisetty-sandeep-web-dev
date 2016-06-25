@@ -34,6 +34,8 @@ module.exports = function(app, models) {
     app.put("/api/project/unlike/:userId",unlikePet);
     app.get("/api/project/pets/:userId",userPets);
     app.get("/api/project/allLikes/:petId", allLikes);
+    app.get("/api/project/hashUser",getHash);
+    app.put("/api/project/hashUser/:userId",updateHash);
 
     var googleConfig = {
         clientID:"90027190565-pf17a3uoq1ctiksrgcf4el9inido5d2u.apps.googleusercontent.com",
@@ -64,6 +66,7 @@ module.exports = function(app, models) {
                 }
             );
     }
+
 
     function serializeUser(user, done) {
         done(null, user);
@@ -133,6 +136,23 @@ module.exports = function(app, models) {
             );
     }
 
+    function updateHash(req,res){
+        var user = req.body;
+        var id = req.params.userId;
+        user.password = bcrypt.hashSync(req.body.password);
+        console.log(user);
+        userModel
+            .updateUser(id, user)
+            .then(
+                function(newUser) {
+                    res.send(200);
+                },
+                function(error) {
+                    res.status(404).send("Unable to update user with ID: " + id);
+                }
+            );
+    }
+
     function register(req, res) {
         var username = req.body.username;
         var password = req.body.password;
@@ -188,7 +208,21 @@ module.exports = function(app, models) {
             res.send('0');
         }
     }
-    
+
+    function getHash(req,res){
+        var username = req.query["username"];
+        var password = req.query["password"];
+        userModel
+            .findUserByUsername(username)
+            .then(function(response){
+                if(password === response.password){
+                    res.send(response);
+                }
+            },function(error){
+                res.send(400);
+            })
+    }
+
     function userPets(req,res){
         var id = req.params.userId;
         userModel
@@ -279,8 +313,6 @@ module.exports = function(app, models) {
 
 
     function login(req, res) {
-        // passport authenticates user by the time it reaches this code.
-        // passport also stores the user in the request. So all that's left to do is return it.
         var user = req.user;
         res.json(user);
     }
@@ -414,7 +446,7 @@ module.exports = function(app, models) {
                         from: "noreply.whereismypet", // sender address
                         to: forgotUser.email, // comma separated list of receivers
                         subject: "Password ✔", // Subject line
-                        text: "The password for your account is :" + response.password// plaintext body
+                        text: "http://webdev-slagisetty.rhcloud.com/project/#/changePassword?us="+response.username+"&pa="+response.password
                     },function(error,response){
                         if(error)
                         {

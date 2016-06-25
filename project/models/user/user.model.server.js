@@ -63,7 +63,8 @@ module.exports = function() {
                 firstName: newUser.firstName,
                 lastName: newUser.lastName,
                 email: newUser.email,
-                favorites: newUser.favorites
+                favorites: newUser.favorites,
+                password: newUser.password
             }
             }
         );

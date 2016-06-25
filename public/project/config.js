@@ -31,6 +31,11 @@
                 controller:"ForgotController",
                 controllerAs:"model"
             })
+            .when('/changePassword',{
+                templateUrl:"views/user/change-password.view.client.html",
+                controller:"ChangeController",
+                controllerAs:"model"
+            })
             .when('/petProfile/:id',{
                 templateUrl:"views/petProfile/pet-profile.view.client.html",
                 controller: "PetProfileController",

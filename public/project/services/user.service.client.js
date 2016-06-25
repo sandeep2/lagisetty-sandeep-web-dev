@@ -23,9 +23,21 @@
             likePets: likePets,
             unlikePets: unlikePets,
             userPets: userPets,
-            getAllLike: getAllLike
+            getAllLike: getAllLike,
+            findUserByHashCredentials:findUserByHashCredentials,
+            updateHashUser: updateHashUser
         };
         return api;
+
+        function updateHashUser(id,newUser){
+            var url = "/api/project/hashUser/" + id;
+            return $http.put(url, newUser);
+        }
+
+        function findUserByHashCredentials(username,password){
+            var url = "/api/project/hashUser?username="+username+"&password="+password;
+            return $http.get(url);
+        }
         
         function getAllLike(id){
             url = "/api/project/allLikes/"+id;
