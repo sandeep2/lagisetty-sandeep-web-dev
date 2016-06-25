@@ -22,14 +22,14 @@ module.exports = function(app, models) {
 
     passport.use('admin', new LocalStrategy(localStrategy));
     passport.serializeUser(serializeUser);
-    passport.deserializeUser(deserializeUser);
+    //passport.deserializeUser(deserializeUser);
 
     function localStrategy(username, password, done) {
         adminModel
-            .findUserByUsername(username)
+            .findAdminByUsername(username)
             .then(
                 function(user) {
-                    if(user && bcrypt.compareSync(password,user.password)) {
+                    if(user && password == user.password) {
                         done(null, user);
                     } else {
                         done(null, false);
@@ -45,18 +45,18 @@ module.exports = function(app, models) {
         done(null, user);
     }
 
-    function deserializeUser(user, done) {
-        adminModel
-            .findUserById(user._id)
-            .then(
-                function(user){
-                    done(null, user);
-                },
-                function(err){
-                    done(err, null);
-                }
-            );
-    }
+    // function deserializeUser(user, done) {
+    //     adminModel
+    //         .findUserById(user._id)
+    //         .then(
+    //             function(user){
+    //                 done(null, user);
+    //             },
+    //             function(err){
+    //                 done(err, null);
+    //             }
+    //         );
+    // }
 
     function register(req, res) {
         var username = req.body.username;
@@ -114,8 +114,6 @@ module.exports = function(app, models) {
     }
 
     function login(req, res) {
-        // passport authenticates user by the time it reaches this code.
-        // passport also stores the user in the request. So all that's left to do is return it.
         var user = req.user;
         res.json(user);
     }

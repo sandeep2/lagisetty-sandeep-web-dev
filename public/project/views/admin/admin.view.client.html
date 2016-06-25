@@ -1,1 +1,9 @@
-{{model.users}}
+<div ng-repeat="user in model.users">
+    <span>{{user.firstName}}</span>
+    <span>{{user.lastName}}</span>
+    <span>{{user.email}}</span>
+    <button ng-click="model.approve(user)" title="approve">Approve</button>
+    <button ng-click="model.decline(user)" title="decline user">Decline</button>
+    <span>------------------------</span>
+</div>
+<a ng-click="model.logout()" class="btn btn-danger btn-block">Logout</a>

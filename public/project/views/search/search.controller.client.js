@@ -11,7 +11,6 @@
            animal: 'all'
         };
         $rootScope.petsRetrieved = [];
-        console.log($rootScope.currentUser.favorites);
 
         function petBreeds (animal) {
             PetSearchService

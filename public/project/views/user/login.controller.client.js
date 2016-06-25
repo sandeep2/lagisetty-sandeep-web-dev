@@ -6,7 +6,7 @@
         .module("WhereIsMyPet")
         .controller("LoginController", LoginController);
 
-    function LoginController($location, UserService,$rootScope,$scope) {
+    function LoginController($location, UserService,$rootScope,$scope,AdminService) {
         var vm = this;
         $scope.checkbox = 1;
 

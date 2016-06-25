@@ -13,7 +13,7 @@
                 controller: "SearchController",
                 controllerAs:"model",
                 resolve:{
-                    loggedIn: checkLoggedIn
+                    loggedIn: searchLoggedIn
                 }
             })
             .when('/login',{
@@ -57,12 +57,38 @@
                 controller: "AdminController",
                 controllerAs: "model",
                 resolve:{
-                    loggedIn: checkLoggedIn
+                    loggedIn:adminLoggedIn
                 }
             })
             .otherwise({
                 redirectTo:"/search"
             });
+
+        function searchLoggedIn(UserService, $location, $q, $rootScope) {
+
+            var deferred = $q.defer();
+
+            UserService
+                .loggedIn()
+                .then(
+                    function(response) {
+                        var user = response.data;
+                        //console.log(user);
+                        if(user == '0') {
+                            $rootScope.currentUser = null;
+                            deferred.resolve();
+                        } else {
+                            $rootScope.currentUser = user;
+                            deferred.resolve();
+                        }
+                    },
+                    function(err) {
+                        $location.url("/login");
+                    }
+                );
+
+            return deferred.promise;
+        }
 
         function checkLoggedIn(UserService, $location, $q, $rootScope) {
 
@@ -74,6 +100,33 @@
                     function(response) {
                         var user = response.data;
                         //console.log(user);
+                        if(user == '0') {
+                            $rootScope.currentUser = null;
+                            deferred.reject();
+                            $location.url("/login");
+                        } else {
+                            $rootScope.currentUser = user;
+                            deferred.resolve();
+                        }
+                    },
+                    function(err) {
+                        $location.url("/login");
+                    }
+                );
+
+            return deferred.promise;
+        }
+
+        function adminLoggedIn(AdminService, $location, $q, $rootScope) {
+
+            var deferred = $q.defer();
+
+            AdminService
+                .loggedIn()
+                .then(
+                    function(response) {
+                        var user = response.data;
+                        console.log(user);
                         if(user == '0') {
                             $rootScope.currentUser = null;
                             deferred.reject();

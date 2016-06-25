@@ -12,6 +12,7 @@ module.exports = function(app, models) {
 
     var userModel = models.userModel;
     var petModel = models.petModel;
+    var adminModel = models.adminModel;
 
     app.get('/auth/google',passport.authenticate('google', { scope : ['profile', 'email'] }));
     app.get('/auth/google/callback',
@@ -69,16 +70,30 @@ module.exports = function(app, models) {
     }
 
     function deserializeUser(user, done) {
-        userModel
-            .findUserById(user._id)
-            .then(
-                function(user){
-                    done(null, user);
-                },
-                function(err){
-                    done(err, null);
-                }
-            );
+        if(user.usersPresent){
+                adminModel
+                    .findAdminById(user._id)
+                    .then(
+                        function(user){
+                            done(null, user);
+                        },
+                        function(err){
+                            done(err, null);
+                        }
+                    );
+        }
+        else {
+            userModel
+                .findUserById(user._id)
+                .then(
+                    function (user) {
+                        done(null, user);
+                    },
+                    function (err) {
+                        done(err, null);
+                    }
+                );
+        }
     }
 
     function googleStrategy(token, refreshToken, profile, done) {
@@ -165,6 +180,7 @@ module.exports = function(app, models) {
     }
 
     function loggedIn(req, res) {
+        var q = req;
         if(req.isAuthenticated()){
             res.json(req.user);
         }
@@ -268,7 +284,6 @@ module.exports = function(app, models) {
         var user = req.user;
         res.json(user);
     }
-
 
     function createUser(req, res) {
         var newUser = req.body;

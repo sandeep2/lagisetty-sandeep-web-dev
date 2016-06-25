@@ -31,8 +31,8 @@ module.exports = function(app, models) {
 
     passport.use('wam', new LocalStrategy(localStrategy));
     passport.use('facebook', new FacebookStrategy(facebookConfig, facebookLogin));
-    passport.serializeUser(serializeUser);
-    passport.deserializeUser(deserializeUser);
+    // passport.serializeUser(serializeUser);
+    // passport.deserializeUser(deserializeUser);
 
 
     function localStrategy(username, password, done) {
@@ -52,22 +52,22 @@ module.exports = function(app, models) {
             );
     }
 
-    function serializeUser(user, done) {
-        done(null, user);
-    }
-
-    function deserializeUser(user, done) {
-        userModel
-            .findUserById(user._id)
-            .then(
-                function(user){
-                    done(null, user);
-                },
-                function(err){
-                    done(err, null);
-                }
-            );
-    }
+    // function serializeUser(user, done) {
+    //     done(null, user);
+    // }
+    //
+    // function deserializeUser(user, done) {
+    //     userModel
+    //         .findUserById(user._id)
+    //         .then(
+    //             function(user){
+    //                 done(null, user);
+    //             },
+    //             function(err){
+    //                 done(err, null);
+    //             }
+    //         );
+    // }
 
     function facebookLogin(token, refreshToken, profile, done) {
         userModel
