@@ -39,7 +39,10 @@
             .when('/petProfile/:id',{
                 templateUrl:"views/petProfile/pet-profile.view.client.html",
                 controller: "PetProfileController",
-                controllerAs: "model"
+                controllerAs: "model",
+                resolve:{
+                    loggedIn: searchLoggedIn
+                }
             })
             .when('/user',{
                 templateUrl:"views/user/profile.view.client.html",

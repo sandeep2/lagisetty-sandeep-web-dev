@@ -40,7 +40,7 @@ module.exports = function(app, models) {
     var googleConfig = {
         clientID:"90027190565-pf17a3uoq1ctiksrgcf4el9inido5d2u.apps.googleusercontent.com",
         clientSecret: "X0Lvz5lL61NeZWgja06UFfRF",
-        callbackURL: "http://127.0.0.1:3000/auth/google/callback"
+        callbackURL: "http://webdev-slagisetty.rhcloud.com/auth/google/callback"
 
     };
 

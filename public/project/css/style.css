@@ -1,204 +1,161 @@
-@media (max-width: 767px) {
-    .search-box {
-        height: 30px;
-        padding: 5px 10px;
-        font-size: 12px;
-        line-height: 1.5;
-        border-radius: 3px;
-    }
-
-    .brandname {
-        font-size: 36px;
-    }
-
-    .carousel-caption {
-        margin-bottom: 20px;
-    }
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-    .search-box {
-        height: 46px;
-        padding: 10px 16px;
-        font-size: 18px;
-        line-height: 1.3333333;
-        border-radius: 6px;
-    }
-
-    .brandname {
-        font-size: 36px;
-    }
-
-    .carousel-caption {
-        margin-bottom: 30px;
-    }
-}
-
-@media (min-width: 992px) and (max-width: 1199px) {
-    .search-box {
-        height: 46px;
-        padding: 10px 16px;
-        font-size: 18px;
-        line-height: 1.3333333;
-        border-radius: 6px;
-    }
-
-    .brandname {
-        font-size: 36px;
-    }
-
-    .carousel-caption {
-        margin-bottom: 40px;
-    }
-}
-
-@media (min-width: 1200px) {
-    .search-box {
-        height: 46px;
-        padding: 10px 16px;
-        font-size: 18px;
-        line-height: 1.3333333;
-        border-radius: 6px;
-    }
-
-    .brandname {
-        font-size: 36px;
-    }
-
-    .carousel-caption {
-        margin-bottom: 50px;
-    }
-}
-
 body {
-    background-color: #FDFDFD;
-}
-
-.div-login, .div-register, .div-forgot-password {
-    margin-top: 60px;
-}
-
-.div-login-main, .div-register-main, .div-forgot-password-main {
-    background-color: white;
-    border: 1px solid #eee;
-    padding: 25px;
-}
-
-.h3-login-main, .h3-register-main {
-    margin-top: 0px;
-    margin-bottom: 20px;
-}
-
-.btn-search {
-    color: white;
-    background-color: #337ab7;
-}
-
-.instructions {
-    color: #777;
-}
-
-.jumbotron {
-    margin-top: 20px;
-}
-
-.h3-page-header {
-    margin: 0px 0 20px;
-}
-
-.nowrap {
-    white-space: nowrap;
-}
-
-.nomargin {
+    font-family: 'Raleway', sans-serif;
+    font-size: 14px;
+    color: #333;
     margin: 0px;
+    margin-top: 80px;
 }
 
-.orange {
-    color: #FFA500;
+nav a {
+    color: black;
 }
 
-.green {
-    color: #008000;
+nav {
+    background: white;
 }
 
-.media-object-movie, .profile-photo {
-    max-height: 100px;
-    max-width: 100px;
+.navbar-brand {
+    font-family: 'Lobster', cursive;
+    font-size: 40px;
 }
 
-#myCarousel {
-    margin-top: 15px;
-    margin-bottom: 30px;
+.navbar-brand img {
+    margin-top: -10px;
+    display: inline;
 }
 
-.alert-box {
-    margin-left: 15px;
-    margin-right: 15px;
+ul.navbar-nav {
+    margin-top: 8px;
 }
 
-.margin-top {
-    margin-top: 15px;
+.navbar-toggle, .navbar-toggle .icon-bar {
+    border: 1px solid #BBB;
 }
 
-.no-left-padding {
-    padding-left: 0px;
+
+.sign-in-up {
+    width: 30%;
 }
 
-.less-padding {
-    padding: 5px;
+
+.pic-and-title {
+    margin-top: 10px;
+    height: 100px;
 }
 
-.bottom-margin {
+.pic-and-title img {
+    padding-right: 10px;
+    display: inline;
+    float: left;
+}
+
+.pic-and-title h3 {
+    display: inline;
+}
+
+hr.above-line {
+    margin-top: 30px;
     margin-bottom: 10px;
 }
 
-.cast-object {
-    width: 48px;
-    height: 48px;
+hr.below-line {
+    margin-top: 10px;
 }
 
-.text-align-center {
-    text-align: center;
+.profile-section {
+    display: inline-table;
+    vertical-align: top;
+    margin-right: 10px;
+    margin-top: 10px;
 }
 
-.display-inline-block {
-    display: inline-block;
+.bordered-profile-section {
+    border: 1px solid #eee;
+    padding: 10px;
+    border-radius: 7px;
 }
 
-.less-top-margin {
-    margin-top: 5px;
+.no-reviews-message {
+    color: gray;
 }
 
-.limit-media-object-dimensions {
-    height: 64px;
-    width: 64px;
+#collapseLink {
+    text-transform: uppercase;
+    color: gray;
+    cursor: pointer;
 }
 
-.theadrow {
-    background-color: #cccccc;
+.number-following {
+    font-size: 20px;
+    color: rgb(48, 141, 232);
 }
 
-.plusicon {
-    font-size: 16px;
-    color: blue;
+.follow-button {
+    margin-top: 10px;
 }
 
-.okicon {
-    font-size: 16px;
+#followingCollapse ul {
+    list-style: none;
+}
+
+/* Details Page */
+.wrapper {
+    width: 80%;
+    margin: auto;
+}
+.details-pic {
+    margin-top: 24px;
+}
+
+.row .details {
+    margin-left: 0px;
+}
+
+.ingredients-list {
+    list-style: none;
+    padding-left: 15px;
+}
+
+.source-details {
+    margin-left: 15px;
+}
+
+.review {
+    border-bottom: 1px solid #BBB;
+}
+.review-cta a {
+    font-size: 4px;
+}
+
+.error-message {
+    color: red;
+}
+.success-message {
     color: green;
 }
 
-.removeicon {
-    font-size: 16px;
-    color: red;
+.portfolio .thumbnail {
+    position: relative;
 }
 
-.pencilicon {
-    font-size: 16px;
-    color: brown;
+.portfolio .thumbnail:hover {
+    cursor: pointer;
 }
 
-.table-bordered > tbody > tr > td {
-    vertical-align: middle;
+.portfolio .caption {
+    bottom: 0;
+    position: absolute;
+}
+
+.portfolio .btn {
+    opacity: 0.75;
+}
+
+.modal-dialog{
+    max-height:50%;
+    width: 50%;
+}
+
+.addLeftPadding{
+    padding-left: 40px;
 }
