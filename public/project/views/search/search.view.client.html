@@ -1,0 +1,88 @@
+<div class="container body-color">
+    <section id="animalFilter">
+        <div class="row">
+            <h4 class="monospace_font"><b class="align-center">Find a Pet to adopt!</b></h4>
+            </div>
+        <div>
+                    <div class="col-lg-offset-4 container-fluid card-mainpage">
+                        <div class="btn-group active padding-search" role="group">
+                            <button  ng-click = "model.query.animal = 'dog'; model.petBreeds('dog')" role="button" class="btn btn-default homepage-items" aria-label="Add">
+                                Dogs</button>
+                            <button  ng-click = "model.query.animal = 'cat'; model.petBreeds('cat')" role="button" class="btn btn-default homepage-items" aria-label="Add">
+                                Cats
+                            </button>
+                            <button  ng-click = "model.query.animal = 'rabbit'; model.petBreeds('rabbit')" role="button" class="btn btn-default homepage-items" aria-label="Add">
+                                Rabbits
+                            </button>
+                            <button  ng-click = "model.query.animal = 'pig'; model.petBreeds('pig')" role="button" class="btn btn-default homepage-items" aria-label="Add">
+                                Pig
+                            </button>
+                            <button  ng-click = "model.query.animal = 'barnyard'; model.petBreeds('barnyard')" role="button" class="btn btn-default homepage-items" aria-label="Add">
+                                barnyard
+                            </button>
+                        </div>
+                    </div>
+                </dl>
+            </div>
+    </section>
+    <section id="refineFilter">
+        <div class="row">
+            <div class="small-12 medium-2 large-3 columns">
+                <input ng-model="model.query.location" type="text" placeholder="Location" />
+            </div>
+            <div class="small-12 medium-3 large-3 columns">
+                <select ng-model="model.query.breed" id="breed">
+                    <option value="">Breed</option>
+                    <option ng-repeat="breed in model.breeds" value="{{breed}}">{{breed}}</option>
+                </select>
+            </div>
+            <div class="small-6 medium-2 large-2 columns">
+                <select ng-model="model.query.age" id="age">
+                    <option value="">Age</option>
+                    <option value="baby">Baby</option>
+                    <option value="young">Young</option>
+                    <option value="adult">Adult</option>
+                    <option value="senior">Senior</option>
+                </select>
+            </div>
+            <div class="small-6 medium-2 large-2 columns">
+                <select ng-model="model.query.gender" id="gender">
+                    <option value="">Gender</option>
+                    <option value="M">Male</option>
+                    <option value="F">Female</option>
+                </select>
+            </div>
+            <div class="small-12 medium-3 large-2 columns">
+                <a ng-click="model.searchPets(model.query)" class="button expand">Find a Pet</a>
+            </div>
+            </div>
+        </section>
+
+    <section>
+    <div class="row">
+        <div class="col-sm-6 col-md-4" ng-repeat="pet in petsRetrieved">
+            <div class="thumbnail recipe-thumbnail">
+                <div class="pic-and-title">
+                    <img ng-attr-src="{{pet.image[0]}}" ng-attr-alt="{{pet.name}}" width="50%">
+                    <a href="#/petProfile/{{pet.id}}" target="_blank"><h6 class="bottom-padding">{{pet.name}}</h6></a>
+                    <div class="pet-item">{{pet.age}}</div>
+                </div>
+                <div class="caption">
+                    <hr class="above-line"/>
+                    <span class="monospace_font"><b>Sex:</b> {{pet.sex}} , <b>Breed: </b>{{pet.breed}}</span>
+                    <hr class="below-line"/>
+                    <div>
+                        <a class="btn btn-primary" role="button" ng-click="model.likePets(pet)" ng-show="currentUser == null || currentUser.favorites.indexOf(pet.id) == -1">
+                            <span class="fa fa-star" aria-hidden="true"></span>
+                        </a>
+                        <a class="btn btn-warning" role="button" ng-click="model.unlikePets(pet)" ng-show="currentUser != null && currentUser.favorites.indexOf(pet.id) != -1">
+                            <span class="fa fa-star-o" aria-hidden="true"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </section>
+
+</div>

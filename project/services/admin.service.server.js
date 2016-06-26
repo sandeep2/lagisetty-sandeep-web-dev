@@ -1,46 +1,35 @@
+/**
+ * Created by slagisetty on 6/23/2016.
+ */
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-var FacebookStrategy = require('passport-facebook').Strategy;
 var bcrypt = require("bcrypt-nodejs");
 
 module.exports = function(app, models) {
 
-    var userModel = models.userModel;
+    var adminModel = models.adminModel;
+    
+    app.get("/api/project/admin/loggedIn",loggedIn);
+    app.post("/api/project/admin/register",register);
+    app.post("/api/project/admin/logout",logout);
+    app.post("/api/project/admin/login",passport.authenticate('admin'),login);
+    app.post("/api/project/admin/", createAdmin);
+    app.get("/api/project/admin/:userId", findAdminById);
+    app.put("/api/project/admin/:userId", updateAdmin);
+    app.delete("/api/project/admin/:userId", deleteAdmin);
+    app.get("/api/project/admin", getAdmin);
 
-    app.get("/auth/facebook", passport.authenticate('facebook'));
-    app.get("/auth/facebook/callback", passport.authenticate('facebook', {
-        successRedirect: '/assignment/#/user',
-        failureRedirect: '/assignment/#/login'
-    }));
 
-    app.get("/api/loggedIn",loggedIn);
-    app.post("/api/register",register);
-    app.post("/api/logout",logout);
-    app.post("/api/login",passport.authenticate('wam'),login);
-    app.post("/api/user", createUser);
-    app.get("/api/user", getUsers);
-    app.get("/api/user/:userId", findUserById);
-    app.put("/api/user/:userId", updateUser);
-    app.delete("/api/user/:userId", deleteUser);
-
-    var facebookConfig = {
-        clientID : process.env.FACEBOOK_CLIENT_ID,
-        clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-        callbackURL: process.env.FACEBOOK_CALLBACK_URL
-    };
-
-    passport.use('wam', new LocalStrategy(localStrategy));
-    passport.use('facebook', new FacebookStrategy(facebookConfig, facebookLogin));
-    // passport.serializeUser(serializeUser);
-    // passport.deserializeUser(deserializeUser);
-
+    passport.use('admin', new LocalStrategy(localStrategy));
+    passport.serializeUser(serializeUser);
+    //passport.deserializeUser(deserializeUser);
 
     function localStrategy(username, password, done) {
-        userModel
-            .findUserByUsername(username)
+        adminModel
+            .findAdminByUsername(username)
             .then(
                 function(user) {
-                    if(user && bcrypt.compareSync(password,user.password)) {
+                    if(user && password == user.password) {
                         done(null, user);
                     } else {
                         done(null, false);
@@ -52,12 +41,12 @@ module.exports = function(app, models) {
             );
     }
 
-    // function serializeUser(user, done) {
-    //     done(null, user);
-    // }
-    //
+    function serializeUser(user, done) {
+        done(null, user);
+    }
+
     // function deserializeUser(user, done) {
-    //     userModel
+    //     adminModel
     //         .findUserById(user._id)
     //         .then(
     //             function(user){
@@ -69,45 +58,11 @@ module.exports = function(app, models) {
     //         );
     // }
 
-    function facebookLogin(token, refreshToken, profile, done) {
-        userModel
-            .findFacebookUser(profile.id)
-            .then(
-                function(facebookUser) {
-                    if(facebookUser) {
-                        return done(null, facebookUser);
-                    } else {
-                        facebookUser = {
-                            username: profile.displayName.replace(/ /g,''),
-                            facebook: {
-                                token: token,
-                                id: profile.id,
-                                displayName: profile.displayName
-                            }
-                        };
-                        userModel
-                            .createUser(facebookUser)
-                            .then(
-                                function(user) {
-                                    done(null, user);
-                                },
-                                function(error){
-                                    done(null, error);
-                                }
-                            );
-                    }
-                },
-                function(error){
-                    done(null, error);
-                }
-            );
-    }
-
     function register(req, res) {
         var username = req.body.username;
         var password = req.body.password;
 
-        userModel
+        adminModel
             .findUserByUsername(username)
             .then(
                 function(user){
@@ -159,18 +114,15 @@ module.exports = function(app, models) {
     }
 
     function login(req, res) {
-        // passport authenticates user by the time it reaches this code.
-        // passport also stores the user in the request. So all that's left to do is return it.
         var user = req.user;
         res.json(user);
     }
 
-
-    function createUser(req, res) {
+    function createAdmin(req, res) {
         var newUser = req.body;
 
-        userModel
-            .createUser(newUser)
+        adminModel
+            .createAdmin(newUser)
             .then(
                 function(user) {
                     res.json(user);
@@ -191,11 +143,11 @@ module.exports = function(app, models) {
         // res.json(newUser);
     }
 
-    function deleteUser(req, res) {
+    function deleteAdmin(req, res) {
         var id = req.params.userId;
 
-        userModel
-            .deleteUser(id)
+        adminModel
+            .deleteAdmin(id)
             .then(
                 function (status) {
                     res.send(200);
@@ -215,11 +167,11 @@ module.exports = function(app, models) {
         // res.status(404).send("Unable to remove user with ID: " + id);
     }
 
-    function updateUser(req, res) {
+    function updateAdmin(req, res) {
         var id = req.params.userId;
         var newUser = req.body;
-        userModel
-            .updateUser(id, newUser)
+        adminModel
+            .updateAdmin(id, newUser)
             .then(
                 function(user) {
                     res.send(200);
@@ -240,10 +192,10 @@ module.exports = function(app, models) {
     }
 
 
-    function findUserById(req, res) {
+    function findAdminById(req, res) {
         var userId = req.params.userId;
-        userModel
-            .findUserById(userId)
+        Admin
+            .findAdminById(userId)
             .then(
                 function(user){
                     res.send(user);
@@ -261,20 +213,21 @@ module.exports = function(app, models) {
         // res.send({});
     }
 
-    function getUsers(req, res) {
+    function getAdmin(req, res) {
         var username = req.query["username"];
         var password = req.query["password"];
         if(username && password) {
-            findUserByCredentials(username, password,req, res);
+            findAdminByCredentials(username, password,req, res);
         } else if(username) {
-            findUserByUsername(username, res);
+            findAdminByUsername(username, res);
         } else {
             res.send(users);
         }
     }
-    function findUserByCredentials(username, password,req, res) {
-        userModel
-            .findUserByCredentials(username, password)
+
+    function findAdminByCredentials(username, password,req, res) {
+        adminModel
+            .findAdminByCredentials(username, password)
             .then(
                 function(user) {
                     req.session.currentUser = user;
@@ -292,9 +245,9 @@ module.exports = function(app, models) {
         // }
         // res.send(403);
     }
-    function findUserByUsername(username, res) {
-        userModel
-            .findUserByUsername(username)
+    function findAdminByUsername(username, res) {
+        adminModel
+            .findAdminByUsername(username)
             .then(function(response){
                     if (response === null){
                         res.send(response);

@@ -22,10 +22,7 @@
             .when('/user',{
                 templateUrl:"views/user/profile.view.client.html",
                 controller:"ProfileController",
-                controllerAs:"model",
-                resolve:{
-                    loggedIn: checkLoggedIn
-                }
+                controllerAs:"model"
             })
 
             .when("/user/:userId/website",{

@@ -1,0 +1,24 @@
+<div class="row">
+    <div class="col-sm-6 col-md-4" ng-repeat="pet in model.pets">
+        <div class="thumbnail recipe-thumbnail">
+            <div class="pic-and-title">
+                <img ng-attr-src="{{pet.media[0]}}" ng-attr-alt="{{pet.name}}" width="50%">
+                <a href="#/petProfile/{{pet.petId}}" target="_blank"><h6 class="bottom-padding">{{pet.name}}</h6></a>
+                <span class="pet-item">{{pet.breed}}</span>
+            </div>
+            <div class="caption">
+                <hr class="above-line"/>
+                <span class="monospace_font"><b>Sex:</b> {{pet.sex}}   ,  <b>Age:</b> {{pet.age}}</span>
+                <hr class="below-line"/>
+                <div>
+                    <a class="btn btn-primary" role="button" ng-click="model.likePets(pet)" ng-show="currentUser == null || currentUser.favorites.indexOf(pet.petId) == -1">
+                        <span class="fa fa-star" aria-hidden="true"></span>
+                    </a>
+                    <a class="btn btn-warning" role="button" ng-click="model.unlikePets(pet)" ng-show="currentUser != null && currentUser.favorites.indexOf(pet.petId) != -1">
+                        <span class="fa fa-star-o" aria-hidden="true"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
