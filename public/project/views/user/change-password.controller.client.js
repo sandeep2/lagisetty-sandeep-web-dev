@@ -31,7 +31,7 @@
                 UserService
                     .updateHashUser(vm.user._id,vm.user)
                     .then(function(resp){
-                        vm.success = "passwords updated"
+                        vm.success = "Password updated"
                     },function(error){
                         vm.error = "Error updating password";
                     });
