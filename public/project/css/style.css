@@ -16,7 +16,7 @@ nav {
 
 .navbar-brand {
     font-family: 'Lobster', cursive;
-    font-size: 40px;
+    font-size: 30px;
 }
 
 .navbar-brand img {
@@ -45,7 +45,7 @@ ul.navbar-nav {
 }
 
 .top-padding{
-    padding-top: 80px;
+    padding-top: 100px;
     padding-bottom: 50px;
 }
 
