@@ -24,12 +24,20 @@ nav {
     display: inline;
 }
 
+.footer, .push {
+    height: 155px; /* .push must be the same height as .footer */
+}
+
 ul.navbar-nav {
     margin-top: 8px;
 }
 
 .navbar-toggle, .navbar-toggle .icon-bar {
     border: 1px solid #BBB;
+}
+
+.navbar-bottom{
+    bottom: 0px;
 }
 
 .sign-in-up {
