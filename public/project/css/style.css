@@ -188,8 +188,31 @@ hr.below-line {
     padding-left: 40px;
 }
 
+.down-padding{
+    padding-bottom: 15px;
+}
+
+.search-content {
+    padding: 15px;
+}
+.search-result a{
+    text-decoration: none;
+}
+.search-result:hover {
+    background-color: #cb202d;
+    color: #eee;
+}
+.search-result:hover a{
+    color: #eee;
+}
+
 .pet-thumbnail h3 {
     -webkit-line-clamp: 2; /* number of lines to show */
     line-height: 26px;        /* fallback */
     height: 32px;       /* fallback */
+}
+
+.padding-bi{
+    padding-left: 10px;
+    font-family: monospace;
 }
