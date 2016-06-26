@@ -8,16 +8,17 @@
 
     var apiKey = "ab7987493e79f85bcf78f199991571d4";
     var apiSecret = "44f45dbb0d2612846bf4daf02d7b240c";
+
     function PetSearchService($http,$rootScope){
 
         var api = {
             petBreeds:petBreeds,
             searchPets: searchPets,
-            getPet: getPet
+            petById: petById
         };
         return api;
 
-        function getPet(id,callback){
+        function petById(id,callback){
             $.getJSON('http://api.petfinder.com/pet.get?format=json&key=' + apiKey + '&callback=?&id=' + id)
                 .success(function (response) {
                     var pet = convertJson(response.petfinder.pet);

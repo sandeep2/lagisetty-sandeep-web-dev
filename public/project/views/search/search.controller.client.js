@@ -28,7 +28,13 @@
             };
             PetSearchService
                 .searchPets(vm.initial,function (petList) {
-                    $rootScope.petsRetrieved = petList;
+                    var temp = petList;
+                    for (var i=0;i<temp.length;i++) {
+                        if (temp[i].breed.length > 8) {
+                            temp[i].breed = temp[i].breed.substring(0, 6) + "...";
+                        }
+                    }
+                    $rootScope.petsRetrieved = temp;
                     $rootScope.$apply();
                 })
         }
@@ -37,7 +43,13 @@
         
         vm.searchPets = function (query) {
             PetSearchService.searchPets(query, function (pets) {
-                $rootScope.petsRetrieved = pets;
+                var temp = pets;
+                for (var i=0;i<temp.length;i++) {
+                    if (temp[i].breed.length > 8) {
+                        temp[i].breed = temp[i].breed.substring(0, 6) + "...";
+                    }
+                }
+                $rootScope.petsRetrieved = temp;
                 $rootScope.$apply();
             });
             if (query.animal == 'all') {

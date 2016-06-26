@@ -11,7 +11,7 @@
         var id = $routeParams.id;
 
         function init() {
-            PetSearchService.getPet(id, function (pet) {
+            PetSearchService.petById(id, function (pet) {
                 vm.pet = pet;
                 $scope.$apply();
             });

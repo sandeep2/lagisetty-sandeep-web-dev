@@ -66,6 +66,14 @@ ul.navbar-nav {
     background-size:     cover;
 }
 
+.truncate {
+    width: 50px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-family: monospace;
+}
+
 .pic-and-title {
     margin-top: 10px;
     height: 155px;
