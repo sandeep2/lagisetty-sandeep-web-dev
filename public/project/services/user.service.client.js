@@ -96,7 +96,10 @@
             var newPet = {
                 petId: pet.id,
                 age: pet.age,
-                name: pet.name
+                name: pet.name,
+                breed: pet.breed,
+                sex: pet.sex,
+                media: pet.image
             };
             var url = "/api/project/like/"+id;
             return $http.put(url,newPet);

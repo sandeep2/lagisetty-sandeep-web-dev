@@ -1,12 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+
+
 {{model.pets}}
+<div class="row">
+    <div class="col-sm-6 col-md-4" ng-repeat="pet in model.pets">
+        <div class="thumbnail recipe-thumbnail">
+            <div class="pic-and-title">
+                <img ng-attr-src="{{pet.media[0]}}" ng-attr-alt="{{pet.name}}" width="50%">
+            </div>
+            <div class="caption">
+                <hr class="above-line"/>
+
+                <hr class="below-line"/>
+
+            </div>
+        </div>
+    </div>
+    </div>
 
 <a href="#/user" type="button" class="btn btn-link btn-success">Profile</a>
-</body>
-</html>
+

@@ -159,3 +159,9 @@ hr.below-line {
 .addLeftPadding{
     padding-left: 40px;
 }
+
+.pet-thumbnail h3 {
+    -webkit-line-clamp: 2; /* number of lines to show */
+    line-height: 26px;        /* fallback */
+    height: 32px;       /* fallback */
+}
