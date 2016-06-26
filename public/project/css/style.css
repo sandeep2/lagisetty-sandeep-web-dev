@@ -11,7 +11,7 @@ nav a {
 }
 
 nav {
-    background: white;
+    background: #a86666;
 }
 
 .navbar-brand {
@@ -32,9 +32,16 @@ ul.navbar-nav {
     border: 1px solid #BBB;
 }
 
-
 .sign-in-up {
     width: 30%;
+}
+
+.padding-search{
+    padding-bottom: 15px;
+}
+
+.top-padding{
+    padding-top: 80px;
 }
 
 .img-class {

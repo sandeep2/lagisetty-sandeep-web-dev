@@ -1,22 +1,25 @@
-<div class="container">
+<div class="container body-color">
     <section id="animalFilter">
         <div class="row">
             <div class="small-12 columns">
-                <dl class="sub-nav">
-                    <div id="filterLabel" class="filterLabel hide-for-small-only"><span>Find a pet to adopt</span>
+                    <div class="col-lg-offset-4 container-fluid card-mainpage">
+                        <div class="btn-group active padding-search" role="group">
+                            <button  ng-click = "model.query.animal = 'dog'; model.petBreeds('dog')" role="button" class="btn btn-default homepage-items" aria-label="Add">
+                                Dogs</button>
+                            <button  ng-click = "model.query.animal = 'cat'; model.petBreeds('cat')" role="button" class="btn btn-default homepage-items" aria-label="Add">
+                                Cats
+                            </button>
+                            <button  ng-click = "model.query.animal = 'rabbit'; model.petBreeds('rabbit')" role="button" class="btn btn-default homepage-items" aria-label="Add">
+                                Rabbits
+                            </button>
+                            <button  ng-click = "model.query.animal = 'pig'; model.petBreeds('pig')" role="button" class="btn btn-default homepage-items" aria-label="Add">
+                                Pig
+                            </button>
+                            <button  ng-click = "model.query.animal = 'barnyard'; model.petBreeds('barnyard')" role="button" class="btn btn-default homepage-items" aria-label="Add">
+                                barnyard
+                            </button>
+                        </div>
                     </div>
-                    <dd class="active"><a ng-click="query.animal = 'all'; petBreeds('dog')">&nbsp;All&nbsp;</a>
-                    </dd>
-                    <dd><a ng-click="model.query.animal = 'dog'; model.petBreeds('dog')">Dogs</a>
-                    </dd>
-                    <dd><a ng-click="model.query.animal = 'cat'; model.petBreeds('cat')">Cats</a>
-                    </dd>
-                    <dd><a ng-click="model.query.animal = 'rabbit'; model.petBreeds('rabbit')">Rabbits</a>
-                    </dd>
-                    <dd><a ng-click="model.query.animal = 'pig'; model.petBreeds('pig')">Pigs</a>
-                    </dd>
-                    <dd><a ng-click="model.query.animal = 'barnyard'; model.petBreeds('barnyard')">Barnyards</a>
-                    </dd>
                 </dl>
             </div>
         </div>
@@ -51,23 +54,15 @@
             <div class="small-12 medium-3 large-2 columns">
                 <a ng-click="model.searchPets(model.query)" class="button expand">Find a Pet</a>
             </div>
-            <a class="btn btn-success btn-block"
-               ng-if="currentUser == null"
-               href="#/register">Register</a>
-            <a class="btn btn-success btn-block"
-               ng-if="currentUser == null"
-               href="#/login">Login</a>
-            <a class="btn btn-success btn-block"
-               ng-if="currentUser != null"
-               href="#/user">profile</a>
             </div>
         </section>
 
+    <section>
     <div class="row">
-        <div class="col-sm-6 col-md-4" ng-repeat="pet in model.pets">
+        <div class="col-sm-6 col-md-4" ng-repeat="pet in petsRetrieved">
             <div class="thumbnail recipe-thumbnail">
                 <div class="pic-and-title">
-                    <img ng-attr-src="{{pet.media[0]}}" ng-attr-alt="{{pet.name}}" width="50%">
+                    <img ng-attr-src="{{pet.image[0]}}" ng-attr-alt="{{pet.name}}" width="50%">
                     <a href="#/petProfile/{{pet.id}}" target="_blank"><h6 class="bottom-padding">{{pet.name}}</h6></a>
                     <span class="pet-item">{{pet.breed}}</span>
                 </div>
@@ -87,5 +82,6 @@
             </div>
         </div>
     </div>
+        </section>
 
 </div>

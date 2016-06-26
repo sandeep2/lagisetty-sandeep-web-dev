@@ -7,7 +7,7 @@
         var vm = this;
         vm.petBreeds = petBreeds;
         vm.query = {
-          location: '02120',
+          location: '02115',
            animal: 'all'
         };
         $rootScope.petsRetrieved = [];
@@ -20,6 +20,20 @@
                 })
 
         }
+
+        function init() {
+            vm.initial = {
+                location: '02120',
+                animal: 'all'
+            };
+            PetSearchService
+                .searchPets(vm.initial,function (petList) {
+                    $rootScope.petsRetrieved = petList;
+                    $rootScope.$apply();
+                })
+        }
+
+        init();
         
         vm.searchPets = function (query) {
             PetSearchService.searchPets(query, function (pets) {
