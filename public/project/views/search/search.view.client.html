@@ -63,18 +63,20 @@
             </div>
         </section>
 
-    <div class="row" infinite-scroll-distance="1">
-        <div ng-repeat="pet in petsRetrieved">
-            <div class="col-sm-6 col-md-4">
-                <div class="thumbnail">
-                    <span class="label label-default pull-right">Name: {{pet.name}}</span>
-                    <a>
-                        <img class="img-responsive" ng-src="{{pet.image[0]}}"/>
-                    </a>
-                    <div class="name">
-                        <a href="#/petProfile/{{pet.id}}">{{ pet.name }}</a>
-                        <p class="breed">{{pet.breed}}</p>
-                        <a class="btn btn-primary" role="button" ng-click="model.likePets(pet)" ng-show="currentUser ==null || currentUser.favorites.indexOf(pet.id) == -1">
+    <div class="row">
+        <div class="col-sm-6 col-md-4" ng-repeat="pet in model.pets">
+            <div class="thumbnail recipe-thumbnail">
+                <div class="pic-and-title">
+                    <img ng-attr-src="{{pet.media[0]}}" ng-attr-alt="{{pet.name}}" width="50%">
+                    <a href="#/petProfile/{{pet.id}}" target="_blank"><h6 class="bottom-padding">{{pet.name}}</h6></a>
+                    <span class="pet-item">{{pet.breed}}</span>
+                </div>
+                <div class="caption">
+                    <hr class="above-line"/>
+                    <span class="monospace_font"><b>Sex:</b> {{pet.sex}}   ,  <b>Age:</b> {{pet.age}}</span>
+                    <hr class="below-line"/>
+                    <div>
+                        <a class="btn btn-primary" role="button" ng-click="model.likePets(pet)" ng-show="currentUser == null || currentUser.favorites.indexOf(pet.id) == -1">
                             <span class="fa fa-star" aria-hidden="true"></span>
                         </a>
                         <a class="btn btn-warning" role="button" ng-click="model.unlikePets(pet)" ng-show="currentUser != null && currentUser.favorites.indexOf(pet.id) != -1">
@@ -85,4 +87,5 @@
             </div>
         </div>
     </div>
+
 </div>

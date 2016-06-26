@@ -37,10 +37,18 @@ ul.navbar-nav {
     width: 30%;
 }
 
+.img-class {
+    position: relative;
+    width:  110px;
+    height: 150px;
+    background-position: 50% 50%;
+    background-repeat:   no-repeat;
+    background-size:     cover;
+}
 
 .pic-and-title {
     margin-top: 10px;
-    height: 100px;
+    height: 155px;
 }
 
 .pic-and-title img {
@@ -111,9 +119,17 @@ hr.below-line {
     margin-left: 0px;
 }
 
-.ingredients-list {
+.pet-item {
     list-style: none;
-    padding-left: 15px;
+    font-family: monospace;
+}
+
+.bottom-padding{
+    padding: 5px;
+}
+
+.monospace_font{
+    font-family: monospace;
 }
 
 .source-details {

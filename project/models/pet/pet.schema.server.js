@@ -4,13 +4,13 @@
 module.exports = function(){
     var mangoose = require("mongoose");
     var PetSchema = mangoose.Schema({
-        petId: {type: String, required: true, unique: true},
+        petId: {type: String, required: true, index: {unique: true}},
         media:[String],
         description: String,
         sex: String,
         name: String,
         age: String,
-        breeds: String,
+        breed: String,
         contact: String
     },{collection: "project.pet"});
 
