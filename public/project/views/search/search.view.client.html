@@ -65,11 +65,11 @@
                 <div class="pic-and-title">
                     <img ng-attr-src="{{pet.image[0]}}" ng-attr-alt="{{pet.name}}" width="50%">
                     <a href="#/petProfile/{{pet.id}}" target="_blank"><h6 class="bottom-padding">{{pet.name}}</h6></a>
-                    <div class="pet-item">{{pet.breed}}</div>
+                    <div class="pet-item">{{pet.age}}</div>
                 </div>
                 <div class="caption">
                     <hr class="above-line"/>
-                    <span class="monospace_font"><b>Sex:</b> {{pet.sex}}   ,  <b>Age:</b> {{pet.age}}</span>
+                    <span class="monospace_font"><b>Sex:</b> {{pet.sex}}   ,  <b>Breed:</b> {{pet.breed}}</span>
                     <hr class="below-line"/>
                     <div>
                         <a class="btn btn-primary" role="button" ng-click="model.likePets(pet)" ng-show="currentUser == null || currentUser.favorites.indexOf(pet.id) == -1">
