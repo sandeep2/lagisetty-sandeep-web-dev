@@ -30,7 +30,7 @@
                 .searchPets(vm.initial,function (petList) {
                     var temp = petList;
                     for (var i=0;i<temp.length;i++) {
-                        if (temp[i].breed.length > 8) {
+                        if (temp[i].breed.length > 4) {
                             temp[i].breed = temp[i].breed.substring(0, 6) + "...";
                         }
                     }
