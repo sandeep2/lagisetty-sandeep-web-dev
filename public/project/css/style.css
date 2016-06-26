@@ -40,6 +40,10 @@ ul.navbar-nav {
     padding-bottom: 15px;
 }
 
+.align-center{
+    text-align: center;
+}
+
 .top-padding{
     padding-top: 80px;
 }

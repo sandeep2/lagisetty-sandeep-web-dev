@@ -37,10 +37,11 @@
     <script src="views/admin/admin.controller.client.js"></script>
     <script src="services/admin.service.client.js"></script>
     <script src="views/user/change-password.controller.client.js"></script>
+    <script src="views/header/header.controller.client.js"></script>
 </head>
 <body>
 
-<div class="container">
+<div ng-controller="HeaderController as model" class="container">
     <header>
         <nav class="navbar navbar-fixed-top">
             <div class="container">
@@ -64,7 +65,7 @@
                         <li><a ng-show="currentUser == null" href="#/login">Sign In</a></li>
                         <li><a ng-show="currentUser == null" href="#/register">Sign Up</a></li>
                         <li><a ng-show="currentUser != null" href="#/user">{{currentUser.username}}'s Profile</a></li>
-                        <!--<li><a ng-show="user != '0'" href="#" ng-click="logout()">Sign Out</a></li>-->
+                        <li><a ng-show="currentUser != null" ng-click="model.logout()">logout</a></li>
                     </ul>
                 </div>
             </div>
