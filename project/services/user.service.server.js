@@ -38,11 +38,18 @@ module.exports = function(app, models) {
     app.put("/api/project/hashUser/:userId",updateHash);
 
     var googleConfig = {
-        clientID:"90027190565-pf17a3uoq1ctiksrgcf4el9inido5d2u.apps.googleusercontent.com",
-        clientSecret: "X0Lvz5lL61NeZWgja06UFfRF",
-        callbackURL: "http://webdev-slagisetty.rhcloud.com/auth/google/callback"
+        clientID: process.env.GOOGLE_CLIENT_ID,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        callbackURL: process.env.GOOGLE_CALLBACK_URL
 
     };
+
+    //var googleConfig = {
+    //    clientID:"90027190565-pf17a3uoq1ctiksrgcf4el9inido5d2u.apps.googleusercontent.com",
+    //    clientSecret: "X0Lvz5lL61NeZWgja06UFfRF",
+    //    callbackURL: "http://webdev-slagisetty.rhcloud.com/auth/google/callback"
+    //
+    //};
 
     passport.use('pet', new LocalStrategy(localStrategy));
     passport.use(new GoogleStrategy(googleConfig,googleStrategy));

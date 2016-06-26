@@ -22,7 +22,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 app.use(cookieParser());
-app.use(session({ secret: "dsabdjas" }));
+app.use(session({ secret: process.env.SES_SECRET }));
 
 app.use(passport.initialize());
 app.use(passport.session());
