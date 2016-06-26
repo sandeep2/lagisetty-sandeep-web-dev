@@ -45,8 +45,8 @@
             PetSearchService.searchPets(query, function (pets) {
                 var temp = pets;
                 for (var i=0;i<temp.length;i++) {
-                    if (temp[i].breed.length > 8) {
-                        temp[i].breed = temp[i].breed.substring(0, 6) + "...";
+                    if (temp[i].breed.length > 7) {
+                        temp[i].breed = temp[i].breed.substring(0, 4) + "...";
                     }
                 }
                 $rootScope.petsRetrieved = temp;
