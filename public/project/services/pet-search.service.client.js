@@ -19,7 +19,7 @@
         return api;
 
         function petById(id,callback){
-            $.getJSON('http://api.petfinder.com/pet.get?format=json&key=' + apiKey + '&callback=?&id=' + id)
+            $.getJSON('https://api.petfinder.com/pet.get?format=json&key=' + apiKey + '&callback=?&id=' + id)
                 .success(function (response) {
                     var pet = convertJson(response.petfinder.pet);
                     callback(pet);
@@ -33,7 +33,7 @@
             var breed = query.breed;
             var age = query.age;
             var gender = query.gender;
-            var url = 'http://api.petfinder.com/pet.find?format=json&key=' + apiKey + '&callback=?&output=basic';
+            var url = 'https://api.petfinder.com/pet.find?format=json&key=' + apiKey + '&callback=?&output=basic';
 
             if(animal != 'all'){
                 url += '&animal='+animal;
@@ -64,7 +64,7 @@
 
 
         function petBreeds(pet,callback) {
-            $.getJSON('http://api.petfinder.com/breed.list?format=json&key=' + apiKey + '&callback=?&animal=' + pet)
+            $.getJSON('https://api.petfinder.com/breed.list?format=json&key=' + apiKey + '&callback=?&animal=' + pet)
                 .success(function (breedsList) {
                     var breeds = [];
                     angular.forEach(breedsList.petfinder.breeds.breed, function (breed) {
